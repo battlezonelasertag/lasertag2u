@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laser Tag for School Fetes, Council Events &amp; Sports Days NSW | Laser Tag 2 U</title>
+  <meta name="description" content="Mobile laser tag hire tailored for school fetes, council community events, sports club days and birthday parties across NSW. Professional operators, all equipment included.">
+  <link rel="canonical" href="https://lasertag2u.com.au/events.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lasertag2u.com.au/events.html">
+  <meta property="og:title" content="Laser Tag for School Fetes, Councils &amp; Sports Days | Laser Tag 2 U NSW">
+  <meta property="og:description" content="Mobile laser tag tailored for school fetes, community events, sports clubs and birthdays across NSW. 100+ players/hour.">
+  <meta property="og:image" content="https://lasertag2u.com.au/assets/images/og/events.jpg">
+
+  <link rel="icon" href="/favicon/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components/nav.css">
+  <link rel="stylesheet" href="assets/css/components/hero.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/badge.css">
+  <link rel="stylesheet" href="assets/css/components/cards.css">
+  <link rel="stylesheet" href="assets/css/components/process-steps.css">
+  <link rel="stylesheet" href="assets/css/components/testimonials.css">
+  <link rel="stylesheet" href="assets/css/components/forms.css">
+  <link rel="stylesheet" href="assets/css/components/modal.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+
+  <style>
+    /* ── Events Page Sub-Nav ──────────────────────────────── */
+    .events-subnav {
+      position: sticky;
+      top: var(--nav-height-sm);
+      z-index: calc(var(--z-nav) - 1);
+      background-color: var(--color-surface-high);
+      box-shadow: 0 1px 0 rgba(44,47,48,0.08), var(--shadow-sm);
+    }
+    .events-subnav__inner {
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--container-pad);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .events-subnav__inner::-webkit-scrollbar { display: none; }
+    .events-subnav__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+    }
+    .events-subnav__link:hover,
+    .events-subnav__link.is-active {
+      color: var(--color-ink);
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* ── Event Section Hero ───────────────────────────────── */
+    .event-section-hero {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      border-radius: var(--radius-2xl);
+      margin-bottom: var(--space-12);
+    }
+    .event-section-hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .event-section-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(44,47,48,0.9) 0%, rgba(44,47,48,0.3) 60%, transparent 100%);
+    }
+    .event-section-hero__content {
+      position: relative;
+      z-index: 1;
+      padding: var(--space-10) var(--space-12);
+      width: 100%;
+      max-width: 640px;
+    }
+    .event-section-hero__tag {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+    .event-section-hero__headline {
+      font-size: var(--text-4xl);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-display);
+      color: var(--color-surface-high);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-4);
+    }
+    .event-section-hero__stat {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      color: rgba(255,255,255,0.8);
+    }
+    .event-section-hero__stat::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: var(--color-accent);
+    }
+
+    /* ── Event Section Layout ─────────────────────────────── */
+    .event-section {
+      padding-block: var(--section-gap);
+    }
+    .event-section:nth-child(even) {
+      background-color: var(--color-surface-low);
+    }
+
+    /* ── Mini Process (3 steps) ───────────────────────────── */
+    .mini-process {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      margin-block: var(--space-10);
+    }
+    .mini-step {
+      background-color: var(--color-surface-high);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+    }
+    .mini-step__num {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-extrabold);
+      color: var(--color-accent);
+      letter-spacing: var(--tracking-display);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 2rem;
+      text-align: center;
+    }
+    .mini-step__content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .mini-step__title {
+      font-size: var(--text-base);
+      font-weight: var(--weight-bold);
+      color: var(--color-ink);
+      line-height: var(--leading-snug);
+    }
+    .mini-step__body {
+      font-size: var(--text-sm);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-relaxed);
+    }
+
+    @media (max-width: 768px) {
+      .event-section-hero__content { padding: var(--space-8) var(--space-6); }
+      .event-section-hero__headline { font-size: var(--text-3xl); }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Laser Tag 2 U","url":"https://lasertag2u.com.au","telephone":"+611300661565","areaServed":["Newcastle","Hunter Valley","Central Coast","Sydney"],"priceRange":"$$"}</script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><span class="nav__logo-text">LASER TAG <span>2 U</span></span></a>
+    <ul class="nav__links">
+      <li><a href="index.html" class="nav__link">Home</a></li>
+      <li><a href="packages.html" class="nav__link">Packages</a></li>
+      <li><a href="events.html" class="nav__link">Event Types</a></li>
+      <li><a href="about.html" class="nav__link">About</a></li>
+      <li><a href="faq.html" class="nav__link">FAQ</a></li>
+    </ul>
+    <div class="nav__actions">
+      <a href="tel:+611300661565" class="nav__phone"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>1300 661 565</a>
+      <button class="btn btn--primary btn--sm" data-open-modal>Get a Quote</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false"><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span></button>
+  </div>
+</nav>
+<div class="nav__mobile-overlay" role="dialog" aria-label="Mobile navigation">
+  <ul class="nav__mobile-links"><li><a href="index.html" class="nav__mobile-link">Home</a></li><li><a href="packages.html" class="nav__mobile-link">Packages</a></li><li><a href="events.html" class="nav__mobile-link">Event Types</a></li><li><a href="about.html" class="nav__mobile-link">About</a></li><li><a href="faq.html" class="nav__mobile-link">FAQ</a></li></ul>
+  <div class="nav__mobile-actions"><a href="tel:+611300661565" class="btn btn--ghost-ink btn--lg">1300 661 565</a><button class="btn btn--primary btn--lg" data-open-modal>Get a Free Quote</button></div>
+</div>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="page-hero__inner">
+    <span class="section-overline" style="color: var(--color-accent);">We go where you need us</span>
+    <h1 class="page-hero__headline">Built for your<br>type of event</h1>
+    <p class="page-hero__subheadline">Whether you're organising a school fete, council festival, sports day or birthday party — we have experience doing exactly what you need.</p>
+  </div>
+</header>
+
+<!-- STICKY SUB-NAV -->
+<nav class="events-subnav" aria-label="Event type sections">
+  <div class="events-subnav__inner">
+    <a href="#school-fetes" class="events-subnav__link">School Fetes</a>
+    <a href="#community" class="events-subnav__link">Community Events</a>
+    <a href="#sports" class="events-subnav__link">Sports Clubs</a>
+    <a href="#birthday" class="events-subnav__link">Birthday Parties</a>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     SCHOOL FETES & FAIRS
+     ============================================================ -->
+<section class="event-section" id="school-fetes" aria-labelledby="school-headline">
+  <div class="container">
+
+    <div class="event-section-hero reveal-scale">
+      <img src="assets/images/events/school-fetes/school-fete-hero.jpg" alt="Children running a laser tag session at a school fete in NSW" width="1200" height="500" loading="lazy" class="event-section-hero__img">
+      <div class="event-section-hero__overlay" aria-hidden="true"></div>
+      <div class="event-section-hero__content">
+        <span class="event-section-hero__tag">School Fetes &amp; Fairs</span>
+        <h2 id="school-headline" class="event-section-hero__headline">The stall that<br>runs itself</h2>
+        <p class="event-section-hero__stat">Run 100+ students per session</p>
+      </div>
+    </div>
+
+    <div class="differentiator">
+      <div class="reveal">
+        <h3 style="font-size: var(--text-3xl); letter-spacing: var(--tracking-tight); margin-bottom: var(--space-5);">Why P&amp;C committees love us</h3>
+        <p style="font-size: var(--text-lg); color: var(--color-ink-muted); margin-bottom: var(--space-8); max-width: 480px;">School fetes are high-volume, high-pressure events. You need stalls that attract kids, generate revenue, and require zero babysitting from your committee. We tick every box.</p>
+
+        <div class="differentiator__features">
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
+            <div><p class="diff-feature__title">100+ students per hour throughput</p><p class="diff-feature__body">Our rapid session system keeps queues short and students moving through continuously, maximising both fun and ticket revenue.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+            <div><p class="diff-feature__title">Our staff manage it completely</p><p class="diff-feature__body">Your P&amp;C committee members are free to manage other stalls. We brief players, run sessions, manage the queue and handle everything ourselves.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+            <div><p class="diff-feature__title">Safe for all primary school ages</p><p class="diff-feature__body">Lightweight headbands (not heavy vests) and safe infrared technology means kids of all sizes and ages can participate without any issues.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75"/></svg></div>
+            <div><p class="diff-feature__title">Public liability insurance included</p><p class="diff-feature__body">We carry full public liability insurance — a school board requirement that we have covered from day one. No paperwork headaches for your P&amp;C.</p></div>
+          </div>
+        </div>
+
+        <div class="cta-group" style="margin-top: var(--space-10);">
+          <button class="btn btn--primary btn--lg" data-open-modal data-track-cta="school-fete-enquire">Enquire for Your School Fete</button>
+          <a href="packages.html" class="btn btn--ghost-ink">View Packages</a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="mini-process">
+          <div class="mini-step"><p class="mini-step__num">1</p><div class="mini-step__content"><p class="mini-step__title">Book &amp; Confirm</p><p class="mini-step__body">We handle the planning. You confirm the date and location — we do the rest.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">2</p><div class="mini-step__content"><p class="mini-step__title">We Set Up</p><p class="mini-step__body">Our team arrives before gates open, sets up the arena and is ready to go.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">3</p><div class="mini-step__content"><p class="mini-step__title">We Run All Day</p><p class="mini-step__body">Back-to-back sessions all day. 100+ kids per hour. Zero involvement from your team.</p></div></div>
+        </div>
+
+        <article class="testimonial-card" aria-label="Testimonial from school fete organiser">
+          <div class="testimonial-card__quote-mark" aria-hidden="true">"</div>
+          <p class="testimonial-card__text">This was the most popular stall at our fete — hands down. The queue never dropped below 20 kids. They ran it entirely themselves and the setup/packdown was completely seamless. Booking them again this year without hesitation.</p>
+          <div class="testimonial-card__footer">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--color-surface-mid);flex-shrink:0;"></div>
+            <div><p class="testimonial-card__name">Lisa R.</p><p class="testimonial-card__role">P&amp;C President, Jesmond Public School</p></div>
+            <div style="margin-left:auto;"><div class="rating"><div class="rating__stars" aria-label="5 stars"><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span></div></div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     COUNCIL & COMMUNITY EVENTS
+     ============================================================ -->
+<section class="event-section" id="community" aria-labelledby="community-headline">
+  <div class="container">
+
+    <div class="event-section-hero reveal-scale">
+      <img src="assets/images/events/council/community-hero.jpg" alt="Laser tag at a council community festival in NSW" width="1200" height="500" loading="lazy" class="event-section-hero__img">
+      <div class="event-section-hero__overlay" aria-hidden="true"></div>
+      <div class="event-section-hero__content">
+        <span class="event-section-hero__tag">Council &amp; Community Events</span>
+        <h2 id="community-headline" class="event-section-hero__headline">Scale without<br>stress</h2>
+        <p class="event-section-hero__stat">50 to 500+ attendees handled</p>
+      </div>
+    </div>
+
+    <div class="differentiator differentiator--flipped">
+      <div class="reveal">
+        <h3 style="font-size: var(--text-3xl); letter-spacing: var(--tracking-tight); margin-bottom: var(--space-5);">What council event coordinators need to know</h3>
+        <p style="font-size: var(--text-lg); color: var(--color-ink-muted); margin-bottom: var(--space-8); max-width: 480px;">We understand the procurement, compliance and logistical requirements of running local government events. We make it easy.</p>
+
+        <div class="differentiator__features">
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+            <div><p class="diff-feature__title">Public liability insurance provided</p><p class="diff-feature__body">Certificates of currency available on request. Satisfies standard council vendor requirements.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
+            <div><p class="diff-feature__title">High capacity throughput</p><p class="diff-feature__body">We process 100+ players per hour continuously — essential for events with hundreds of attendees spread across the day.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <div><p class="diff-feature__title">Flexible duration blocks</p><p class="diff-feature__body">Whether it's a 2-hour community morning or a 6-hour festival, we scale our team and equipment to match.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+            <div><p class="diff-feature__title">Inclusive for mixed ages</p><p class="diff-feature__body">Community events attract everyone from young children to grandparents. Our lightweight headbands and adjustable difficulty make it work for all ages.</p></div>
+          </div>
+        </div>
+
+        <div class="cta-group" style="margin-top: var(--space-10);">
+          <button class="btn btn--primary btn--lg" data-open-modal data-track-cta="council-enquire">Enquire for Your Event</button>
+          <a href="packages.html" class="btn btn--ghost-ink">View Packages</a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="mini-process">
+          <div class="mini-step"><p class="mini-step__num">1</p><div class="mini-step__content"><p class="mini-step__title">Submit Your Brief</p><p class="mini-step__body">Tell us your attendee numbers, event duration and venue. We'll provide a formal quote for your files.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">2</p><div class="mini-step__content"><p class="mini-step__title">We Coordinate</p><p class="mini-step__body">We liaise with your events team on timing, space requirements and setup logistics ahead of the day.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">3</p><div class="mini-step__content"><p class="mini-step__title">Deliver &amp; Run</p><p class="mini-step__body">On the day, we arrive, set up and run the activity autonomously. Your team manages the broader event.</p></div></div>
+        </div>
+
+        <article class="testimonial-card" aria-label="Testimonial from council events coordinator">
+          <div class="testimonial-card__quote-mark" aria-hidden="true">"</div>
+          <p class="testimonial-card__text">We needed an activity that would keep kids engaged for 6 hours at our community day. LT2U handled over 400 players across the day. The insurance docs were ready immediately and the team was completely professional. Exactly what we needed.</p>
+          <div class="testimonial-card__footer">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--color-surface-mid);flex-shrink:0;"></div>
+            <div><p class="testimonial-card__name">Mark D.</p><p class="testimonial-card__role">Events Coordinator, Port Stephens Council</p></div>
+            <div style="margin-left:auto;"><div class="rating"><div class="rating__stars" aria-label="5 stars"><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span></div></div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SPORTS CLUBS
+     ============================================================ -->
+<section class="event-section" id="sports" aria-labelledby="sports-headline">
+  <div class="container">
+
+    <div class="event-section-hero reveal-scale">
+      <img src="assets/images/events/sports/sports-hero.jpg" alt="Sports club end of season laser tag event in NSW" width="1200" height="500" loading="lazy" class="event-section-hero__img">
+      <div class="event-section-hero__overlay" aria-hidden="true"></div>
+      <div class="event-section-hero__content">
+        <span class="event-section-hero__tag">Sports Clubs</span>
+        <h2 id="sports-headline" class="event-section-hero__headline">The end-of-season<br>day they'll love</h2>
+        <p class="event-section-hero__stat">Perfect for mixed ages — kids and parents</p>
+      </div>
+    </div>
+
+    <div class="differentiator">
+      <div class="reveal">
+        <h3 style="font-size: var(--text-3xl); letter-spacing: var(--tracking-tight); margin-bottom: var(--space-5);">End-of-season events &amp; fundraisers that actually work</h3>
+        <p style="font-size: var(--text-lg); color: var(--color-ink-muted); margin-bottom: var(--space-8); max-width: 480px;">Sports kids are competitive by nature. Put a laser tagger in their hands and watch them absolutely light up — parents included.</p>
+
+        <div class="differentiator__features">
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg></div>
+            <div><p class="diff-feature__title">Fundraising-friendly format</p><p class="diff-feature__body">Charge a small ticket fee per session. With 100+ players per hour throughput, the revenue potential is significant for club fundraisers.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+            <div><p class="diff-feature__title">Works for the whole family</p><p class="diff-feature__body">Junior players, senior players and parents can all play together. No age barrier, no skill requirement — just pure competitive fun.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
+            <div><p class="diff-feature__title">Pairs perfectly with presentations</p><p class="diff-feature__body">Run laser tag before or after your formal presentation. It gets people there earlier and keeps them engaged longer.</p></div>
+          </div>
+        </div>
+
+        <div class="cta-group" style="margin-top: var(--space-10);">
+          <button class="btn btn--primary btn--lg" data-open-modal data-track-cta="sports-enquire">Enquire for Your Club Event</button>
+          <a href="packages.html" class="btn btn--ghost-ink">View Packages</a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="mini-process">
+          <div class="mini-step"><p class="mini-step__num">1</p><div class="mini-step__content"><p class="mini-step__title">Lock in the Date</p><p class="mini-step__body">End-of-season dates are popular. Book early to secure your preferred day.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">2</p><div class="mini-step__content"><p class="mini-step__title">We Arrive &amp; Set Up</p><p class="mini-step__body">We set up alongside your presentation venue. No space conflict, no logistical headache.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">3</p><div class="mini-step__content"><p class="mini-step__title">Players Play, You Celebrate</p><p class="mini-step__body">We run continuous sessions while you run your club presentation. Perfect parallel programming.</p></div></div>
+        </div>
+
+        <article class="testimonial-card" aria-label="Testimonial from sports club president">
+          <div class="testimonial-card__quote-mark" aria-hidden="true">"</div>
+          <p class="testimonial-card__text">We've been doing end-of-season events for 8 years and this was the best one yet. Kids stayed for hours after the presentation just to play more laser tag. Couldn't recommend LT2U more highly.</p>
+          <div class="testimonial-card__footer">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--color-surface-mid);flex-shrink:0;"></div>
+            <div><p class="testimonial-card__name">Dave P.</p><p class="testimonial-card__role">Club President, Maitland FC Junior</p></div>
+            <div style="margin-left:auto;"><div class="rating"><div class="rating__stars" aria-label="5 stars"><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span></div></div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BIRTHDAY PARTIES
+     ============================================================ -->
+<section class="event-section" id="birthday" aria-labelledby="birthday-headline">
+  <div class="container">
+
+    <div class="event-section-hero reveal-scale">
+      <img src="assets/images/events/birthday/birthday-hero.jpg" alt="Kids playing laser tag at a birthday party in NSW" width="1200" height="500" loading="lazy" class="event-section-hero__img">
+      <div class="event-section-hero__overlay" aria-hidden="true"></div>
+      <div class="event-section-hero__content">
+        <span class="event-section-hero__tag">Birthday Parties</span>
+        <h2 id="birthday-headline" class="event-section-hero__headline">The party they'll<br>never forget</h2>
+        <p class="event-section-hero__stat">Works in any backyard, park or venue</p>
+      </div>
+    </div>
+
+    <div class="differentiator differentiator--flipped">
+      <div class="reveal">
+        <h3 style="font-size: var(--text-3xl); letter-spacing: var(--tracking-tight); margin-bottom: var(--space-5);">The easiest party activity you'll ever organise</h3>
+        <p style="font-size: var(--text-lg); color: var(--color-ink-muted); margin-bottom: var(--space-8); max-width: 480px;">You handle the cake. We handle the battle. It's that simple.</p>
+
+        <div class="differentiator__features">
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></div>
+            <div><p class="diff-feature__title">We come to you</p><p class="diff-feature__body">Backyard, park, sports ground — if there's enough space, we can set up and run a great game. No need to hire a venue.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+            <div><p class="diff-feature__title">Mixed ages, no problem</p><p class="diff-feature__body">Kids from 6 to 16 can play together. Adults join in too. Our staff balance teams to keep it competitive and fun for everyone.</p></div>
+          </div>
+          <div class="diff-feature reveal">
+            <div class="diff-feature__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <div><p class="diff-feature__title">Stress-free for parents</p><p class="diff-feature__body">Our operator runs the whole activity. You're free to mingle with guests, take photos and enjoy the party without babysitting an activity.</p></div>
+          </div>
+        </div>
+
+        <div class="cta-group" style="margin-top: var(--space-10);">
+          <button class="btn btn--primary btn--lg" data-open-modal data-track-cta="birthday-enquire">Enquire for Your Party</button>
+          <a href="packages.html" class="btn btn--ghost-ink">View Packages</a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="mini-process">
+          <div class="mini-step"><p class="mini-step__num">1</p><div class="mini-step__content"><p class="mini-step__title">Tell Us the Details</p><p class="mini-step__body">Date, location, approximate number of kids, and how long you'd like us for.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">2</p><div class="mini-step__content"><p class="mini-step__title">We Arrive &amp; Set Up</p><p class="mini-step__body">We arrive 30 minutes before party guests and have everything ready to go.</p></div></div>
+          <div class="mini-step"><p class="mini-step__num">3</p><div class="mini-step__content"><p class="mini-step__title">Pure Fun</p><p class="mini-step__body">Multiple rounds of laser tag. We manage everything. You enjoy the party.</p></div></div>
+        </div>
+
+        <article class="testimonial-card" aria-label="Testimonial from birthday party parent">
+          <div class="testimonial-card__quote-mark" aria-hidden="true">"</div>
+          <p class="testimonial-card__text">My son turned 10 and this was the best birthday party we've ever done. The operator was brilliant with the kids — patient, enthusiastic and kept everyone involved. Still hearing about it 3 weeks later!</p>
+          <div class="testimonial-card__footer">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--color-surface-mid);flex-shrink:0;"></div>
+            <div><p class="testimonial-card__name">Tanya H.</p><p class="testimonial-card__role">Parent, Lake Macquarie</p></div>
+            <div style="margin-left:auto;"><div class="rating"><div class="rating__stars" aria-label="5 stars"><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span><span class="rating__star" aria-hidden="true">★</span></div></div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ENQUIRY -->
+<section class="enquiry-section section" id="enquire" aria-labelledby="events-form-headline">
+  <div class="container">
+    <div class="differentiator">
+      <div class="reveal">
+        <span class="section-overline" style="color: var(--color-accent);">Get in touch</span>
+        <h2 id="events-form-headline" class="section-headline" style="color: var(--color-surface-high); margin-bottom: var(--space-6);">Ready to book?</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:var(--text-lg);margin-bottom:var(--space-8);">Tell us about your event and we'll come back with a tailored quote within one business day.</p>
+        <div class="trust-strip" style="flex-direction:column;align-items:flex-start;gap:var(--space-4);">
+          <div class="trust-item trust-item--white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>1 business day response</div>
+          <div class="trust-item trust-item--white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>Or call: <a href="tel:+611300661565" style="color:var(--color-accent);margin-left:4px;">1300 661 565</a></div>
+        </div>
+      </div>
+      <div class="enquiry-form-wrap reveal">
+        <div class="form-success" role="status" aria-live="polite"><div class="form-success__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div><h3 class="form-success__title">Enquiry sent!</h3><p class="form-success__body">We'll be in touch with your tailored quote shortly.</p></div>
+        <form class="enquiry-form form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5);">
+            <div class="field"><label class="field__label field__label--required" for="ev-name">Name</label><input class="field__input" type="text" id="ev-name" name="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field"><label class="field__label field__label--required" for="ev-phone">Phone</label><input class="field__input" type="tel" id="ev-phone" name="phone" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="ev-email">Email</label><input class="field__input" type="email" id="ev-email" name="email" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field"><label class="field__label field__label--required" for="ev-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="ev-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete / Fair</option><option value="council-community">Council / Community</option><option value="sports-club">Sports Club</option><option value="birthday-party">Birthday Party</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
+            <div class="field"><label class="field__label field__label--required" for="ev-guests">Guest Count</label><div class="field__select-wrap"><select class="field__select" id="ev-guests" name="guest_count" required aria-required="true"><option value="">Select...</option><option value="under-50">Under 50</option><option value="50-150">50–150</option><option value="150-300">150–300</option><option value="300-plus">300+</option></select></div><span class="field__error-msg" role="alert"></span></div>
+            <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="ev-location">Event Location</label><input class="field__input" type="text" id="ev-location" name="location" placeholder="e.g. Newcastle, Gosford" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;margin-top:var(--space-4);">Send My Enquiry <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="20" height="20" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></button>
+          <div class="form-trust"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>Your details are private and will never be shared.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-cta reveal"><h2 class="footer-cta__headline">Your event. Our expertise.</h2><p class="footer-cta__subheadline">Get a free, no-obligation quote today.</p><div class="footer-cta__actions"><button class="btn btn--xl" data-open-modal style="background:var(--color-ink);color:white;">Get a Free Quote</button><a href="tel:+611300661565" class="btn btn--ghost-ink btn--xl">1300 661 565</a></div></div>
+    <div class="footer__grid">
+      <div class="footer__brand"><a href="index.html" class="footer__brand-logo">LASER TAG <span>2 U</span></a><p class="footer__tagline">Mobile laser tag for events across NSW. We bring the adventure to you.</p></div>
+      <div><p class="footer__nav-title">Navigate</p><ul class="footer__nav-links"><li><a href="index.html" class="footer__nav-link">Home</a></li><li><a href="packages.html" class="footer__nav-link">Packages</a></li><li><a href="events.html" class="footer__nav-link">Event Types</a></li><li><a href="about.html" class="footer__nav-link">About</a></li><li><a href="faq.html" class="footer__nav-link">FAQ</a></li></ul></div>
+      <div><p class="footer__nav-title">Event Types</p><ul class="footer__nav-links"><li><a href="#school-fetes" class="footer__nav-link">School Fetes</a></li><li><a href="#community" class="footer__nav-link">Community Events</a></li><li><a href="#sports" class="footer__nav-link">Sports Clubs</a></li><li><a href="#birthday" class="footer__nav-link">Birthday Parties</a></li></ul></div>
+      <div><p class="footer__nav-title">Get in Touch</p><div class="footer__contact-items"><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg><p class="footer__contact-text"><a href="tel:+611300661565">1300 661 565</a></p></div><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg><p class="footer__contact-text"><a href="mailto:info@lasertag2u.com.au">info@lasertag2u.com.au</a></p></div></div></div>
+    </div>
+    <div class="footer__bottom"><p class="footer__copyright">&copy; 2025 Laser Tag 2 U. All rights reserved.</p><div class="footer__legal"><a href="#" class="footer__legal-link">Privacy Policy</a><a href="#" class="footer__legal-link">Terms &amp; Conditions</a></div></div>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar"><a href="tel:+611300661565" class="btn btn--secondary">Call Now</a><button class="btn btn--primary" data-open-modal>Get a Quote</button></div>
+
+<div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ev-modal-title">
+  <div class="modal">
+    <div class="modal__header"><h2 class="modal__title" id="ev-modal-title">Get a Free Quote</h2><button class="modal__close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="18" height="18" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+    <div class="form-success" role="status" aria-live="polite"><div class="form-success__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div><h3 class="form-success__title">Sent!</h3><p class="form-success__body">We'll be in touch within one business day.</p></div>
+    <form class="enquiry-form form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);">
+        <div class="field"><label class="field__label field__label--required" for="evm-name">Name</label><input class="field__input" type="text" id="evm-name" name="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="evm-phone">Phone</label><input class="field__input" type="tel" id="evm-phone" name="phone" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="evm-email">Email</label><input class="field__input" type="email" id="evm-email" name="email" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="evm-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="evm-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete</option><option value="council">Council / Community</option><option value="sports">Sports Club</option><option value="birthday">Birthday Party</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="evm-location">Location</label><input class="field__input" type="text" id="evm-location" name="location" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+      </div>
+      <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;margin-top:var(--space-4);">Send My Enquiry</button>
+      <div class="form-trust"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>Response within 1 business day. Your details stay private.</div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/animations.js" defer></script>
+<script src="assets/js/form.js" defer></script>
+</body>
+</html>

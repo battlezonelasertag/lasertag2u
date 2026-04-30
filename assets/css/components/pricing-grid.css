@@ -1,0 +1,377 @@
+/* ============================================================
+   PRICING-GRID.CSS — Package Cards & Pricing Components
+   ============================================================ */
+
+/* ── Pricing Grid ─────────────────────────────────────────── */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* ── Package Card ─────────────────────────────────────────── */
+
+.package-card {
+  background-color: var(--color-surface-high);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  position: relative;
+  transition:
+    transform var(--duration-base) var(--ease-spring),
+    box-shadow var(--duration-base) var(--ease-out);
+  box-shadow: var(--shadow-sm);
+}
+
+.package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Popular Card (elevated) ──────────────────────────────── */
+
+.package-card--popular {
+  background-color: var(--color-ink);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.package-card--popular:hover {
+  transform: translateY(-14px);
+}
+
+.package-card--popular .package-card__name,
+.package-card--popular .package-card__price,
+.package-card--popular .package-card__price-note,
+.package-card--popular .package-card__headline {
+  color: var(--color-surface-high);
+}
+
+.package-card--popular .package-card__divider {
+  background-color: rgba(255,255,255,0.10);
+}
+
+.package-card--popular .package-card__feature {
+  color: rgba(255,255,255,0.75);
+}
+
+.package-card--popular .package-card__feature svg {
+  color: var(--color-accent);
+}
+
+/* ── Popular Badge ────────────────────────────────────────── */
+
+.package-card__popular-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+/* ── Card Header ──────────────────────────────────────────── */
+
+.package-card__header {
+  margin-bottom: var(--space-6);
+}
+
+.package-card__name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.package-card__headline {
+  font-size: var(--text-base);
+  color: var(--color-ink-muted);
+  line-height: var(--leading-snug);
+}
+
+/* ── Price ────────────────────────────────────────────────── */
+
+.package-card__price-block {
+  margin-bottom: var(--space-6);
+}
+
+.package-card__price {
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  line-height: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.package-card__price-symbol {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-2);
+  font-weight: var(--weight-bold);
+}
+
+.package-card__price-note {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  margin-top: var(--space-2);
+  line-height: var(--leading-normal);
+}
+
+.package-card__divider {
+  height: 1px;
+  background-color: var(--color-surface-low);
+  margin-block: var(--space-6);
+}
+
+/* ── Features List ────────────────────────────────────────── */
+
+.package-card__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.package-card__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  line-height: var(--leading-snug);
+}
+
+.package-card__feature svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent-dark);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Add-ons Table ────────────────────────────────────────── */
+
+.addons-table {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.addons-table th,
+.addons-table td {
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+}
+
+.addons-table thead tr {
+  background-color: var(--color-surface-mid);
+}
+
+.addons-table th {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.addons-table tbody tr {
+  background-color: var(--color-surface-high);
+}
+
+.addons-table tbody tr:nth-child(even) {
+  background-color: var(--color-surface);
+}
+
+.addons-table td {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.addons-table td:first-child {
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+}
+
+.addons-table td:nth-child(2) {
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+/* ── What's Included Grid ─────────────────────────────────── */
+
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.included-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background-color: var(--color-surface-high);
+  border-radius: var(--radius-lg);
+}
+
+.included-item__icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-accent-tint);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.included-item__icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-ink);
+}
+
+.included-item__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
+}
+
+.included-item__body {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* ── Capacity Calculator ──────────────────────────────────── */
+
+.calculator {
+  background-color: var(--color-surface-high);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-md);
+}
+
+.calculator__label {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
+  margin-bottom: var(--space-6);
+}
+
+.calculator__input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.calculator__count-display {
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-accent-dark);
+  min-width: 100px;
+  line-height: 1;
+}
+
+.calculator__range {
+  flex: 1;
+  min-width: 200px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-mid);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.calculator__range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  border: 3px solid var(--color-surface-high);
+  box-shadow: var(--shadow-md);
+  cursor: grab;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.calculator__range::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+}
+
+.calculator__result {
+  background-color: var(--color-surface-low);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.calculator__result-package {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-extrabold);
+  color: var(--color-ink);
+}
+
+.calculator__result-price {
+  font-size: var(--text-lg);
+  color: var(--color-ink-muted);
+}
+
+.calculator__result-note {
+  font-size: var(--text-sm);
+  color: var(--color-ink-faint);
+  flex: 1;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .package-card--popular {
+    transform: none;
+  }
+
+  .package-card--popular:hover {
+    transform: translateY(-6px);
+  }
+
+  .included-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .included-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator {
+    padding: var(--space-6);
+  }
+}

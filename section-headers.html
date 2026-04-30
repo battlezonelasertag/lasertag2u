@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Section Header Variants — LT2U</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: #c8cbce;
+      color: var(--color-ink);
+    }
+
+    /* ── Page chrome ──────────────────────────────────────────── */
+
+    .page-title {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: #6b737a;
+      text-align: center;
+      padding: 3rem 0 1.5rem;
+    }
+
+    .page-note {
+      font-size: var(--text-sm);
+      color: #7a8188;
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+      padding-inline: 1.5rem;
+    }
+
+    .style-label {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: #6b737a;
+      padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .style-block {
+      margin-bottom: 3rem;
+    }
+
+    /* ── Sample grid ──────────────────────────────────────────── */
+    /* 3 real headlines side by side so you can judge consistency */
+
+    .sample-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--color-surface);
+      box-shadow: 0 20px 60px rgba(44,47,48,0.16), 0 4px 16px rgba(44,47,48,0.08);
+    }
+
+    .sample-grid--dark {
+      background: var(--color-ink);
+    }
+
+    .sample {
+      padding: clamp(2.5rem, 5vw, 4rem);
+      border-right: 1px solid var(--color-surface-mid);
+    }
+
+    .sample:last-child { border-right: none; }
+
+    .sample-grid--dark .sample {
+      border-right-color: rgba(255,255,255,0.08);
+    }
+
+    /* Divider between light/dark sample grids */
+    .sample-grid + .sample-grid {
+      border-top: 3px solid #c8cbce;
+    }
+
+    /* ── Shared headline sizes ────────────────────────────────── */
+
+    .hl {
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-hero);
+      line-height: var(--leading-tight);
+      color: var(--color-ink);
+    }
+
+    .hl--lg { font-size: clamp(3rem, 2rem + 4vw, 5.5rem); }
+    .hl--md { font-size: clamp(2.25rem, 1.6rem + 3.25vw, 3.75rem); }
+
+    .hl--light { color: #fff; }
+
+
+    /* ================================================================
+       STYLE A — Headline Only
+       No eyebrow. The headline carries the full weight. Works when
+       the headline is punchy and self-sufficient.
+       ================================================================ */
+
+    /* No extra styles needed — just the headline. */
+
+
+    /* ================================================================
+       STYLE B — Headline + Lede
+       No eyebrow. Context moves below the headline as a short sentence
+       in a larger, muted type style. Natural reading order: attention
+       first, context second.
+       ================================================================ */
+
+    .lede {
+      font-size: var(--text-lg);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-relaxed);
+      max-width: 420px;
+      margin-top: var(--space-4);
+    }
+
+    .lede--light {
+      color: rgba(255,255,255,0.50);
+    }
+
+
+    /* ================================================================
+       STYLE C — Accent Word
+       No eyebrow. One key word in the headline is set in lime, or
+       given a lime underline. Visual distinction lives inside the
+       type, not above it.
+       ================================================================ */
+
+    .hl em {
+      font-style: normal;
+      color: var(--color-accent);
+    }
+
+    .hl mark {
+      background: none;
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--color-accent);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.12em;
+    }
+
+
+    /* ================================================================
+       STYLE D — Ruled Divider
+       A short lime bar sits above the headline. No text label at all.
+       Purely a visual rhythm marker — just enough to signal a new
+       section without adding word noise.
+       ================================================================ */
+
+    .rule-head {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .rule-head::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--color-accent);
+      border-radius: var(--radius-pill);
+      flex-shrink: 0;
+    }
+
+
+    /* ================================================================
+       STYLE E — Index Number
+       A large muted number (01, 02 …) anchors the header block. The
+       number provides page structure and scannability without adding
+       a text label. Works well on pages with many sections.
+       ================================================================ */
+
+    .indexed-head {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-6);
+    }
+
+    .indexed-head__num {
+      font-size: clamp(1rem, 0.75rem + 1vw, 1.25rem);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-widest);
+      color: var(--color-surface-mid);
+      line-height: 1;
+      padding-top: 0.35em;
+      flex-shrink: 0;
+    }
+
+    .sample-grid--dark .indexed-head__num {
+      color: rgba(255,255,255,0.15);
+    }
+
+
+    /* ================================================================
+       STYLE F — Marginal Eyebrow
+       The eyebrow is kept but demoted — moved to the right margin as
+       a small vertical label, or set beside the headline at a much
+       smaller size. It's there for context but doesn't compete with
+       the headline for attention.
+       ================================================================ */
+
+    .marginal-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: var(--space-6);
+    }
+
+    .marginal-head__aside {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-ink-faint);
+      line-height: 1;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      padding-top: var(--space-2);
+      white-space: nowrap;
+    }
+
+    .sample-grid--dark .marginal-head__aside {
+      color: rgba(255,255,255,0.20);
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <p class="page-title">LT2U — Section Header Styles</p>
+  <p class="page-note">Each style is shown applied to three real headlines from the homepage. Style BC (selected direction) is shown first. The current approach is shown last for comparison.</p>
+
+
+  <!-- ============================================================
+       STYLE BC — Combined: Lede Below + Accent Word on Dark Only
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">BC — Selected Direction: Lede below + accent word on dark only</p>
+
+    <!-- Light sections: headline + lede, no accent word -->
+    <div class="sample-grid">
+
+      <div class="sample">
+        <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+        <p class="lede">You've got enough to manage on event day — we handle the whole operation from setup to packdown.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+        <p class="lede">Equipment, staffing, and setup all included. One price, nothing hidden.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md">We come to you —<br>across NSW.</h2>
+        <p class="lede">Serving Newcastle, Hunter Valley, Central Coast, and Greater Sydney.</p>
+      </div>
+
+    </div>
+
+    <!-- Dark sections: headline with accent word + lede -->
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <h2 class="hl hl--lg hl--light">From enquiry<br>to <em>event.</em></h2>
+        <p class="lede lede--light">Five steps between right now and a fully-run laser tag event at your venue.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--lg hl--light">Built for<br><em>your</em> event.</h2>
+        <p class="lede lede--light">School fetes, council days, sports clubs, birthday parties — we've run them all.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across <em>NSW.</em></h2>
+        <p class="lede lede--light">From P&amp;C committees to council coordinators — here's what they say.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px dashed #b0b5b9; margin: 0 0 3rem;">
+
+
+  <!-- ============================================================
+       STYLE A — Headline Only
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">A — Headline Only</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--lg">From enquiry<br>to event.</h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <h2 class="hl hl--lg hl--light">Built for<br>your event.</h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across NSW.</h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Ready to bring laser tag<br>to your event?</h2>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       STYLE B — Headline + Lede
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">B — Headline + Lede (context below, not above)</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+        <p class="lede">You've got enough to manage on event day — we handle the whole operation from setup to packdown.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--lg">From enquiry<br>to event.</h2>
+        <p class="lede">Five steps between right now and a fully-run laser tag event at your venue.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+        <p class="lede">Equipment, staffing, and setup all included. One price, no add-ons.</p>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <h2 class="hl hl--lg hl--light">Built for<br>your event.</h2>
+        <p class="lede lede--light">School fetes, council days, sports clubs, birthday parties — we've run them all.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across NSW.</h2>
+        <p class="lede lede--light">From P&amp;C committees to council coordinators — here's what they say.</p>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Ready to bring laser tag<br>to your event?</h2>
+        <p class="lede lede--light">We'll call you back within one business day with availability and a quote.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       STYLE C — Accent Word
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">C — Accent Word (distinction lives inside the type)</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <h2 class="hl hl--lg">The stall that<br><em>runs itself.</em></h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--lg">From enquiry<br>to <em>event.</em></h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md">All-inclusive packages.<br><em>No surprises.</em></h2>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <h2 class="hl hl--lg hl--light">Built for<br><em>your</em> event.</h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across <em>NSW.</em></h2>
+      </div>
+
+      <div class="sample">
+        <h2 class="hl hl--md hl--light">Ready to bring laser tag<br>to <em>your</em> event?</h2>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       STYLE D — Ruled Divider
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">D — Ruled Divider (lime bar, no text label)</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <div class="rule-head">
+          <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="rule-head">
+          <h2 class="hl hl--lg">From enquiry<br>to event.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="rule-head">
+          <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+        </div>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <div class="rule-head">
+          <h2 class="hl hl--lg hl--light">Built for<br>your event.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="rule-head">
+          <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across NSW.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="rule-head">
+          <h2 class="hl hl--md hl--light">Ready to bring laser tag<br>to your event?</h2>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       STYLE E — Index Number
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">E — Index Number (structure without labels)</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <div class="indexed-head">
+          <span class="indexed-head__num">01</span>
+          <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="indexed-head">
+          <span class="indexed-head__num">02</span>
+          <h2 class="hl hl--lg">From enquiry<br>to event.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="indexed-head">
+          <span class="indexed-head__num">03</span>
+          <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+        </div>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <div class="indexed-head">
+          <span class="indexed-head__num">04</span>
+          <h2 class="hl hl--lg hl--light">Built for<br>your event.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="indexed-head">
+          <span class="indexed-head__num">05</span>
+          <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across NSW.</h2>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="indexed-head">
+          <span class="indexed-head__num">06</span>
+          <h2 class="hl hl--md hl--light">Ready to bring laser tag<br>to your event?</h2>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       STYLE F — Marginal Eyebrow
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">F — Marginal Eyebrow (demoted to the side, not above)</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <div class="marginal-head">
+          <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+          <span class="marginal-head__aside">Why choose us</span>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="marginal-head">
+          <h2 class="hl hl--lg">From enquiry<br>to event.</h2>
+          <span class="marginal-head__aside">How it works</span>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="marginal-head">
+          <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+          <span class="marginal-head__aside">Pricing</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <div class="marginal-head">
+          <h2 class="hl hl--lg hl--light">Built for<br>your event.</h2>
+          <span class="marginal-head__aside">Event types</span>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="marginal-head">
+          <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across NSW.</h2>
+          <span class="marginal-head__aside">Testimonials</span>
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="marginal-head">
+          <h2 class="hl hl--md hl--light">Ready to bring laser tag<br>to your event?</h2>
+          <span class="marginal-head__aside">Get in touch</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       CURRENT — Eyebrow Above (for comparison)
+       ============================================================ -->
+
+  <div class="style-block">
+    <p class="style-label">Current — Eyebrow Above (all 7 sections, for comparison)</p>
+    <div class="sample-grid">
+
+      <div class="sample">
+        <span style="display:inline-block; font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-widest); text-transform:uppercase; color:var(--color-ink-muted); margin-bottom:var(--space-4);">Why event organisers choose us</span>
+        <h2 class="hl hl--lg">The stall that<br>runs itself.</h2>
+      </div>
+
+      <div class="sample">
+        <span style="display:inline-block; font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-widest); text-transform:uppercase; color:var(--color-ink-muted); margin-bottom:var(--space-4);">Transparent pricing</span>
+        <h2 class="hl hl--md">All-inclusive packages.<br>No surprises.</h2>
+      </div>
+
+      <div class="sample">
+        <span style="display:inline-block; font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-widest); text-transform:uppercase; color:var(--color-ink-muted); margin-bottom:var(--space-4);">Coverage</span>
+        <h2 class="hl hl--md">We come to you —<br>across NSW.</h2>
+      </div>
+
+    </div>
+    <div class="sample-grid sample-grid--dark">
+
+      <div class="sample">
+        <span style="display:inline-block; font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-widest); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:var(--space-4);">Simple from start to finish</span>
+        <h2 class="hl hl--lg hl--light">From enquiry<br>to event.</h2>
+      </div>
+
+      <div class="sample">
+        <span style="display:inline-block; font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-widest); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:var(--space-4);">Who we work with</span>
+        <h2 class="hl hl--lg hl--light">Built for<br>your event.</h2>
+      </div>
+
+      <div class="sample">
+        <span style="display:inline-block; font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-widest); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:var(--space-4);">Social proof</span>
+        <h2 class="hl hl--md hl--light">Trusted by event organisers<br>across NSW.</h2>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

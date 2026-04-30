@@ -1,0 +1,199 @@
+/* ============================================================
+   BADGE.CSS — Trust Signals, Chips & Rating Badges
+   ============================================================ */
+
+/* ── Base Badge / Chip ────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Variants */
+.badge--accent {
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.badge--ink {
+  background-color: var(--color-ink);
+  color: var(--color-surface-high);
+}
+
+.badge--surface {
+  background-color: var(--color-surface-high);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.badge--ghost {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-surface-high);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.badge--ghost-ink {
+  background-color: rgba(44, 47, 48, 0.08);
+  color: var(--color-ink);
+}
+
+/* ── Star Rating ──────────────────────────────────────────── */
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.rating__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rating__star {
+  color: #F59E0B;
+  font-size: var(--text-sm);
+}
+
+.rating__score {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
+}
+
+.rating__count {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+}
+
+/* Hero variant (large) */
+.rating--hero .rating__score {
+  font-size: var(--text-base);
+  color: var(--color-surface-high);
+}
+
+.rating--hero .rating__count {
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── Social Proof Bar ─────────────────────────────────────── */
+
+.proof-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.proof-bar__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.proof-bar__label {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.proof-bar__value {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-surface-high);
+}
+
+.proof-bar__divider {
+  width: 1px;
+  height: 20px;
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* ── Capacity Chip ────────────────────────────────────────── */
+
+.capacity-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  box-shadow: var(--shadow-accent);
+}
+
+.capacity-chip svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Trust Badge Strip ────────────────────────────────────── */
+
+.trust-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-muted);
+}
+
+.trust-item svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent-dark);
+  flex-shrink: 0;
+}
+
+.trust-item--white {
+  color: rgba(255,255,255,0.8);
+}
+
+.trust-item--white svg {
+  color: var(--color-accent);
+}
+
+/* ── Insured Pill Badge ───────────────────────────────────── */
+
+.insured-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-ink);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.insured-pill svg {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}

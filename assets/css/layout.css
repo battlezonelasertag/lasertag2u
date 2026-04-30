@@ -1,0 +1,208 @@
+/* ============================================================
+   LAYOUT.CSS — Grid System, Containers & Section Spacing
+   ============================================================ */
+
+/* ── Containers ───────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+/* ── Sections ─────────────────────────────────────────────── */
+
+.section {
+  padding-block: var(--section-gap);
+}
+
+.section--sm {
+  padding-block: var(--section-gap-sm);
+}
+
+.section--lg {
+  padding-block: var(--section-gap-lg);
+}
+
+.section--flush-top {
+  padding-top: 0;
+}
+
+.section--flush-bottom {
+  padding-bottom: 0;
+}
+
+/* Background surface variants — NO 1px borders, only tonal shifts */
+.bg-surface        { background-color: var(--color-surface); }
+.bg-surface-low    { background-color: var(--color-surface-low); }
+.bg-surface-mid    { background-color: var(--color-surface-mid); }
+.bg-surface-high   { background-color: var(--color-surface-high); }
+.bg-ink            { background-color: var(--color-ink); }
+.bg-ink-deep       { background-color: #1e2122; }
+.bg-accent         { background-color: var(--color-accent); }
+
+/* ── Grid Utilities ───────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.grid-auto-fit-sm {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.grid-auto-fit-md {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+/* Asymmetric layouts */
+.grid-60-40 { grid-template-columns: 60fr 40fr; }
+.grid-40-60 { grid-template-columns: 40fr 60fr; }
+.grid-55-45 { grid-template-columns: 55fr 45fr; }
+
+/* ── Flex Utilities ───────────────────────────────────────── */
+
+.flex         { display: flex; }
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-col     { display: flex; flex-direction: column; }
+.flex-wrap    { flex-wrap: wrap; }
+.gap-2        { gap: var(--space-2); }
+.gap-4        { gap: var(--space-4); }
+.gap-6        { gap: var(--space-6); }
+.gap-8        { gap: var(--space-8); }
+.gap-12       { gap: var(--space-12); }
+.gap-16       { gap: var(--space-16); }
+
+/* ── Section Header Pattern ───────────────────────────────── */
+
+.section-header {
+  margin-bottom: var(--space-16);
+}
+
+.section-header--centered {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: var(--space-16);
+}
+
+.section-header p {
+  margin-top: var(--space-4);
+  font-size: var(--text-lg);
+}
+
+/* ── Reveal Animation Base States ────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out),
+    transform var(--duration-reveal) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-group > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out),
+    transform var(--duration-reveal) var(--ease-out);
+}
+
+.reveal-group.is-visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+.reveal-group.is-visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.reveal-group.is-visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
+.reveal-group.is-visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+.reveal-group.is-visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.reveal-group.is-visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out),
+    transform var(--duration-reveal) var(--ease-out);
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .grid-3     { grid-template-columns: repeat(2, 1fr); }
+  .grid-4     { grid-template-columns: repeat(2, 1fr); }
+  .grid-60-40 { grid-template-columns: 1fr; }
+  .grid-40-60 { grid-template-columns: 1fr; }
+  .grid-55-45 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .grid-2     { grid-template-columns: 1fr; }
+  .grid-3     { grid-template-columns: 1fr; }
+  .grid-4     { grid-template-columns: repeat(2, 1fr); }
+
+  .section-header--centered {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Utility ──────────────────────────────────────────────── */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.aspect-video    { aspect-ratio: 16 / 9; }
+.aspect-square   { aspect-ratio: 1; }
+.aspect-portrait { aspect-ratio: 4 / 5; }
+
+.object-cover  { object-fit: cover; width: 100%; height: 100%; }
+.rounded-md    { border-radius: var(--radius-md); }
+.rounded-lg    { border-radius: var(--radius-lg); }
+.rounded-xl    { border-radius: var(--radius-xl); }
+.overflow-hidden { overflow: hidden; }
+
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+
+.mt-4  { margin-top: var(--space-4); }
+.mt-6  { margin-top: var(--space-6); }
+.mt-8  { margin-top: var(--space-8); }
+.mt-12 { margin-top: var(--space-12); }
+
+.mb-4  { margin-bottom: var(--space-4); }
+.mb-6  { margin-bottom: var(--space-6); }
+.mb-8  { margin-bottom: var(--space-8); }
+.mb-12 { margin-bottom: var(--space-12); }

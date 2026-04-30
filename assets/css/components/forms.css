@@ -1,0 +1,258 @@
+/* ============================================================
+   FORMS.CSS — Input, Form & Enquiry Components
+   ============================================================ */
+
+/* ── Form Layout ──────────────────────────────────────────── */
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.form-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form-full {
+  grid-column: 1 / -1;
+}
+
+/* ── Field Group ──────────────────────────────────────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ── Label ────────────────────────────────────────────────── */
+
+.field__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-normal);
+}
+
+.field__label--required::after {
+  content: ' *';
+  color: #e53e3e;
+}
+
+/* ── Input ────────────────────────────────────────────────── */
+
+.field__input,
+.field__select,
+.field__textarea {
+  width: 100%;
+  background-color: var(--color-surface-high);
+  color: var(--color-ink);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  box-shadow: 0 0 0 1.5px rgba(44, 47, 48, 0.12);
+  transition:
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field__input::placeholder,
+.field__textarea::placeholder {
+  color: var(--color-ink-faint);
+}
+
+.field__input:hover,
+.field__select:hover,
+.field__textarea:hover {
+  box-shadow: 0 0 0 1.5px rgba(44, 47, 48, 0.22);
+}
+
+.field__input:focus,
+.field__select:focus,
+.field__textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent), 0 0 12px rgba(202, 253, 0, 0.15);
+  background-color: var(--color-surface-high);
+}
+
+/* Error state */
+.field--error .field__input,
+.field--error .field__select,
+.field--error .field__textarea {
+  box-shadow: 0 0 0 2px #e53e3e;
+}
+
+.field__error-msg {
+  font-size: var(--text-xs);
+  color: #e53e3e;
+  display: none;
+}
+
+.field--error .field__error-msg {
+  display: block;
+}
+
+/* ── Select with arrow ────────────────────────────────────── */
+
+.field__select-wrap {
+  position: relative;
+}
+
+.field__select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--color-ink-muted);
+  pointer-events: none;
+}
+
+.field__select {
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* ── Textarea ─────────────────────────────────────────────── */
+
+.field__textarea {
+  resize: vertical;
+  min-height: 120px;
+  max-height: 320px;
+}
+
+/* ── Form on Dark Background ──────────────────────────────── */
+
+.form--dark .field__label,
+.enquiry-section .field__label {
+  color: rgba(255,255,255,0.9);
+}
+
+.form--dark .field__input,
+.form--dark .field__select,
+.form--dark .field__textarea {
+  background-color: rgba(255,255,255,0.08);
+  color: var(--color-surface-high);
+  box-shadow: 0 0 0 1.5px rgba(255,255,255,0.15);
+}
+
+.form--dark .field__input::placeholder,
+.form--dark .field__textarea::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.form--dark .field__input:focus,
+.form--dark .field__select:focus,
+.form--dark .field__textarea:focus {
+  background-color: rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 2px var(--color-accent), 0 0 16px rgba(202,253,0,0.15);
+}
+
+/* ── Enquiry Form Section ─────────────────────────────────── */
+
+.enquiry-section {
+  background-color: var(--color-ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.enquiry-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(202,253,0,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.enquiry-form-wrap {
+  background-color: rgba(255,255,255,0.04);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ── Form Trust Bar ───────────────────────────────────────── */
+
+.form-trust {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.50);
+}
+
+.form-trust svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+/* ── Success / Error States ───────────────────────────────── */
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: var(--space-12) var(--space-8);
+}
+
+.form-success.is-visible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.form-success__icon {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-success__icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--color-ink);
+}
+
+.form-success__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-extrabold);
+  color: var(--color-surface-high);
+}
+
+.form-success__body {
+  color: rgba(255,255,255,0.65);
+  max-width: 380px;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .enquiry-form-wrap {
+    padding: var(--space-8) var(--space-6);
+  }
+}

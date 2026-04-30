@@ -1,0 +1,139 @@
+/* ============================================================
+   TESTIMONIALS.CSS — Testimonial Grid & Featured Quote
+   ============================================================ */
+
+/* ── Section ──────────────────────────────────────────────── */
+
+.testimonials-section {
+  background-color: var(--color-surface-low);
+}
+
+/* ── Filter Tabs ──────────────────────────────────────────── */
+
+.filter-tabs {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-10);
+}
+
+.filter-tab {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-muted);
+  background-color: var(--color-surface-high);
+  cursor: pointer;
+  border: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring);
+}
+
+.filter-tab:hover {
+  background-color: var(--color-surface-mid);
+  color: var(--color-ink);
+}
+
+.filter-tab.is-active {
+  background-color: var(--color-ink);
+  color: var(--color-surface-high);
+}
+
+/* ── Grid ─────────────────────────────────────────────────── */
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+/* Hidden items when filtering */
+.testimonial-card[data-hidden] {
+  display: none;
+}
+
+/* ── Featured Testimonial ─────────────────────────────────── */
+
+.featured-testimonial {
+  background-color: var(--color-ink);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12) var(--space-16);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-12);
+}
+
+.featured-testimonial::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: var(--space-12);
+  font-size: 200px;
+  font-weight: var(--weight-extrabold);
+  color: var(--color-accent);
+  opacity: 0.15;
+  line-height: 1;
+  font-family: var(--font-sans);
+  pointer-events: none;
+}
+
+.featured-testimonial__text {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  color: var(--color-surface-high);
+  line-height: var(--leading-snug);
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin-bottom: var(--space-8);
+}
+
+.featured-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.featured-testimonial__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-accent);
+}
+
+.featured-testimonial__name {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-surface-high);
+}
+
+.featured-testimonial__role {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.55);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-testimonial {
+    padding: var(--space-8);
+  }
+
+  .featured-testimonial__text {
+    font-size: var(--text-xl);
+  }
+}
