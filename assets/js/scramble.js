@@ -14,7 +14,8 @@
     'Council Events.',
     'Sports Days.',
     'Community Festivals.',
-    'Birthday Parties.'
+    'Birthday Parties.',
+    'Corporate Groups.'
   ];
 
   function scrambleText(el, targetText, duration, onComplete) {
