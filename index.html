@@ -24,6 +24,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Leaflet (service area map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/reset.css">
@@ -669,36 +672,25 @@
       <!-- Travel Cost Estimator -->
       <div class="travel-checker reveal-scale">
         <div class="travel-checker__card">
-          <p class="travel-checker__label">Travel cost estimator</p>
-          <p class="travel-checker__hint">Enter your suburb or postcode to get an instant travel estimate for your event.</p>
-          <form class="travel-checker__form" id="travel-checker-form" novalidate>
-            <div class="travel-checker__input-row">
-              <input
-                type="text"
-                id="travel-location"
-                class="travel-checker__input"
-                placeholder="e.g. Gosford NSW"
-                autocomplete="off"
-                aria-label="Your suburb or postcode"
-              >
-              <button type="submit" class="btn btn--primary">Check</button>
-            </div>
-          </form>
-          <div class="travel-checker__result" id="travel-result" aria-live="polite" hidden></div>
-          <p class="travel-checker__fine">Straight-line estimate only — exact cost confirmed in your quote.</p>
-          <div class="travel-checker__locations">
-            <div class="travel-checker__location-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Newcastle &amp; Hunter Valley — travel included
-            </div>
-            <div class="travel-checker__location-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Central Coast — travel included
-            </div>
-            <div class="travel-checker__location-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              Lake Macquarie, Maitland, Cessnock &amp; more
-            </div>
+          <div id="service-map" class="travel-checker__map" aria-label="Map showing Laser Tag 2 U service area"></div>
+          <div class="travel-checker__body">
+            <p class="travel-checker__label">Travel cost estimator</p>
+            <p class="travel-checker__hint">Enter your suburb or postcode to get an instant travel estimate.</p>
+            <form class="travel-checker__form" id="travel-checker-form" novalidate>
+              <div class="travel-checker__input-row">
+                <input
+                  type="text"
+                  id="travel-location"
+                  class="travel-checker__input"
+                  placeholder="e.g. Gosford NSW"
+                  autocomplete="off"
+                  aria-label="Your suburb or postcode"
+                >
+                <button type="submit" class="btn btn--primary">Check</button>
+              </div>
+            </form>
+            <div class="travel-checker__result" id="travel-result" aria-live="polite" hidden></div>
+            <p class="travel-checker__fine">Straight-line estimate only — exact cost confirmed in your quote.</p>
           </div>
         </div>
       </div>
@@ -1171,6 +1163,7 @@
 <script src="assets/js/animations.js" defer></script>
 <script src="assets/js/scramble.js" defer></script>
 <script src="assets/js/form.js" defer></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN2GqBY=" crossorigin="" defer></script>
 <script src="assets/js/travel-checker.js" defer></script>
 
 <!-- Service area map: replace YOUR_MAPS_API_KEY in the img src above with your Maps Static API key -->

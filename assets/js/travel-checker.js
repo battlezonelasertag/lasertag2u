@@ -1,4 +1,4 @@
-/* Travel cost estimator — uses Nominatim (OpenStreetMap) geocoding, no API key required */
+/* Travel cost estimator — Nominatim geocoding + Leaflet map, no API key required */
 
 (function () {
   const BASE_LAT = -32.7220;
@@ -37,11 +37,52 @@
     el.innerHTML = html;
   }
 
+  /* ── Map ─────────────────────────────────────────────────── */
+
+  const mapEl = document.getElementById('service-map');
+  if (!mapEl || typeof L === 'undefined') return;
+
+  const map = L.map('service-map', {
+    center: [BASE_LAT, BASE_LON],
+    zoom: 7,
+    zoomControl: false,
+    attributionControl: true,
+    scrollWheelZoom: false,
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // 100km free-travel radius
+  L.circle([BASE_LAT, BASE_LON], {
+    radius: FREE_RADIUS_KM * 1000,
+    color: '#a8d400',
+    fillColor: '#cafd00',
+    fillOpacity: 0.10,
+    weight: 2,
+    opacity: 0.7,
+  }).addTo(map);
+
+  // Port Stephens base marker
+  L.circleMarker([BASE_LAT, BASE_LON], {
+    radius: 7,
+    fillColor: '#cafd00',
+    color: '#2c2f30',
+    weight: 2,
+    fillOpacity: 1,
+  }).addTo(map).bindTooltip('Port Stephens — our base', { permanent: false, direction: 'right' });
+
+  /* ── Form ────────────────────────────────────────────────── */
+
   const form = document.getElementById('travel-checker-form');
   const input = document.getElementById('travel-location');
   const result = document.getElementById('travel-result');
 
   if (!form) return;
+
+  let userMarker = null;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -56,12 +97,23 @@
       const cost = travelCost(distKm);
       const shortName = name.split(',').slice(0, 2).join(',');
 
+      // Update map — drop a pin and fit bounds
+      if (userMarker) map.removeLayer(userMarker);
+      userMarker = L.circleMarker([lat, lon], {
+        radius: 7,
+        fillColor: '#2c2f30',
+        color: '#ffffff',
+        weight: 2,
+        fillOpacity: 0.9,
+      }).addTo(map).bindTooltip(shortName, { permanent: false, direction: 'top' });
+      map.fitBounds([[BASE_LAT, BASE_LON], [lat, lon]], { padding: [30, 30] });
+
       if (cost === 0) {
         setResult(result, 'free',
           `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="20" height="20" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
           <div>
             <strong>Travel included</strong>
-            <span>${shortName} is ~${distKm} km from Port Stephens — within our free service area.</span>
+            <span>${shortName} is ~${distKm} km — within our free service area.</span>
           </div>`
         );
       } else {
@@ -69,7 +121,7 @@
           `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="20" height="20" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
           <div>
             <strong>Estimated travel: ~$${cost}</strong>
-            <span>${shortName} is ~${distKm} km away. Travel cost confirmed in your quote.</span>
+            <span>${shortName} is ~${distKm} km away. Exact cost confirmed in your quote.</span>
           </div>`
         );
       }
