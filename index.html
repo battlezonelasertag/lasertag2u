@@ -666,16 +666,41 @@
         </a>
       </div>
 
-      <!-- NSW Service Area Map — Static Maps API -->
-      <div class="service-map-wrap reveal-scale">
-        <img
-          class="service-map-img"
-          src="https://maps.googleapis.com/maps/api/staticmap?center=-32.7220,152.1466&zoom=7&size=640x640&scale=2&maptype=roadmap&style=feature:poi|visibility:off&style=feature:transit|visibility:off&style=feature:water|element:geometry.fill|color:0xd4e6f1&style=feature:landscape|element:geometry.fill|color:0xf5f6f7&style=feature:road|element:geometry.fill|color:0xffffff&style=feature:road|element:geometry.stroke|color:0xe0e0e0&style=feature:administrative.locality|element:labels.text.fill|color:0x5a6068&path=fillcolor:0xCAFD0015|color:0xCAFD00AA|weight:2|-30.9202,152.1466|-31.1616,153.2200|-31.8211,154.0042|-32.7220,154.2934|-33.6229,154.0042|-34.2824,153.2200|-34.5238,152.1466|-34.2824,151.0732|-33.6229,150.2890|-32.7220,150.0000|-31.8211,150.2890|-31.1616,151.0732|-30.9202,152.1466&markers=size:small|color:0xcafd00|-32.7220,152.1466&key=YOUR_MAPS_API_KEY"
-          alt="Map of NSW showing the Laser Tag 2 U service area — a 200km radius from Port Stephens covering Newcastle, Hunter Valley, Central Coast and Greater Sydney"
-          width="640"
-          height="640"
-          loading="lazy"
-        >
+      <!-- Travel Cost Estimator -->
+      <div class="travel-checker reveal-scale">
+        <div class="travel-checker__card">
+          <p class="travel-checker__label">Travel cost estimator</p>
+          <p class="travel-checker__hint">Enter your suburb or postcode to get an instant travel estimate for your event.</p>
+          <form class="travel-checker__form" id="travel-checker-form" novalidate>
+            <div class="travel-checker__input-row">
+              <input
+                type="text"
+                id="travel-location"
+                class="travel-checker__input"
+                placeholder="e.g. Gosford NSW"
+                autocomplete="off"
+                aria-label="Your suburb or postcode"
+              >
+              <button type="submit" class="btn btn--primary">Check</button>
+            </div>
+          </form>
+          <div class="travel-checker__result" id="travel-result" aria-live="polite" hidden></div>
+          <p class="travel-checker__fine">Straight-line estimate only — exact cost confirmed in your quote.</p>
+          <div class="travel-checker__locations">
+            <div class="travel-checker__location-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Newcastle &amp; Hunter Valley — travel included
+            </div>
+            <div class="travel-checker__location-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Central Coast — travel included
+            </div>
+            <div class="travel-checker__location-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Lake Macquarie, Maitland, Cessnock &amp; more
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1146,6 +1171,7 @@
 <script src="assets/js/animations.js" defer></script>
 <script src="assets/js/scramble.js" defer></script>
 <script src="assets/js/form.js" defer></script>
+<script src="assets/js/travel-checker.js" defer></script>
 
 <!-- Service area map: replace YOUR_MAPS_API_KEY in the img src above with your Maps Static API key -->
 
