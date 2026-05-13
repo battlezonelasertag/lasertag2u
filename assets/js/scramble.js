@@ -15,7 +15,8 @@
     'Sports Days.',
     'Community Festivals.',
     'Birthday Parties.',
-    'Corporate Groups.'
+    'Corporate Groups.',
+    'Vacation Care.'
   ];
 
   function scrambleText(el, targetText, duration, onComplete) {
