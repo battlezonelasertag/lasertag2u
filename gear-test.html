@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gear Spotlight Concepts — LT2U Design Test</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components/nav.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/badge.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+
+  <style>
+
+    /* ── Test page utilities ─────────────────────────────────── */
+    .concept-label {
+      background: var(--color-ink);
+      color: var(--color-accent);
+      font-family: monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: var(--space-3) var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .concept-label__title   { color: white; font-weight: 600; }
+    .concept-label__note    { color: rgba(255,255,255,0.4); font-weight: normal; }
+
+    /* Image placeholder — stands in for real gear photos not yet supplied */
+    .img-placeholder {
+      background: var(--color-surface-mid);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      width: 100%;
+      height: 100%;
+      min-height: 240px;
+    }
+    .img-placeholder__label {
+      font-size: var(--text-xs);
+      font-family: monospace;
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      text-align: center;
+      padding: 0 var(--space-4);
+    }
+    .img-placeholder__icon {
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+
+    /* ── TAGGER CONCEPT 1: Product Dark Hero ─────────────────── */
+    .tagger-hero {
+      background: var(--color-ink);
+      padding: var(--space-16) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Giant watermark text behind everything */
+    .tagger-hero__watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(80px, 16vw, 180px);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: -0.04em;
+      color: white;
+      opacity: 0.03;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .tagger-hero__inner {
+      position: relative;
+      z-index: 1;
+    }
+    .tagger-hero__eyebrow {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+    }
+    .tagger-hero__heading {
+      font-size: clamp(var(--text-4xl), 6vw, 72px);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-tight);
+      color: white;
+      line-height: 1;
+      margin-bottom: var(--space-6);
+    }
+    .tagger-hero__heading em {
+      color: var(--color-accent);
+      font-style: normal;
+    }
+    .tagger-hero__desc {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.55);
+      line-height: var(--leading-relaxed);
+      max-width: 520px;
+      margin-bottom: var(--space-8);
+    }
+    .tagger-hero__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+    .tagger-hero__img-wrap {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .tagger-hero__img-wrap img,
+    .tagger-hero__img-wrap .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Stat strip spanning full width at the bottom */
+    .tagger-hero__specs {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: var(--space-2) 0 var(--space-6);
+    }
+    .tagger-hero__spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-6);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .tagger-hero__spec-row:last-child { border-bottom: none; }
+    .tagger-hero__spec-name {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.4);
+    }
+    .tagger-hero__spec-val {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: white;
+      text-align: right;
+    }
+    @media (max-width: 768px) {
+      .tagger-hero__layout { grid-template-columns: 1fr; }
+    }
+
+
+    /* ── TAGGER CONCEPT 2: Spec breakdown ────────────────────── */
+    .tagger-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+    .tagger-specs__images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: var(--space-3);
+    }
+    .tagger-specs__img-main {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      position: relative;
+    }
+    .tagger-specs__img-thumb {
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+    }
+    .tagger-specs__img-main img,
+    .tagger-specs__img-thumb img,
+    .tagger-specs__img-main .img-placeholder,
+    .tagger-specs__img-thumb .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .tagger-specs__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+    .tagger-specs__intro {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .tagger-specs__eyebrow {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-accent-dark);
+    }
+    .tagger-specs__heading {
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-tight);
+      color: var(--color-ink);
+      line-height: var(--leading-tight);
+    }
+    .tagger-specs__heading em {
+      color: var(--color-accent-dark);
+      font-style: normal;
+    }
+    .tagger-specs__desc {
+      font-size: var(--text-base);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-relaxed);
+    }
+    .tagger-spec-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .tagger-spec-row {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: var(--space-4);
+      align-items: start;
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-surface-mid);
+    }
+    .tagger-spec-row:last-child { border-bottom: none; }
+    .tagger-spec-row__icon {
+      width: 28px;
+      height: 28px;
+      background: var(--color-accent-tint);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent-dark);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tagger-spec-row__body { display: flex; flex-direction: column; gap: var(--space-1); }
+    .tagger-spec-row__label {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: var(--color-ink);
+    }
+    .tagger-spec-row__value {
+      font-size: var(--text-sm);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-snug);
+    }
+    @media (max-width: 900px) {
+      .tagger-specs { grid-template-columns: 1fr; }
+    }
+
+
+    /* ── INFLATABLE CONCEPT 1: Battlefield Visual ────────────── */
+    .field-visual {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: 1fr 1fr;
+      gap: var(--space-3);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      height: clamp(380px, 62vh, 580px);
+    }
+    .field-visual__hero {
+      grid-row: 1 / 3;
+      position: relative;
+      overflow: hidden;
+    }
+    .field-visual__hero img,
+    .field-visual__hero .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .field-visual__hero-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(44,47,48,0.85) 0%, transparent 100%);
+      padding: var(--space-8) var(--space-8) var(--space-6);
+    }
+    .field-visual__thumb {
+      position: relative;
+      overflow: hidden;
+    }
+    .field-visual__thumb img,
+    .field-visual__thumb .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s var(--ease-spring);
+    }
+    .field-visual__thumb:hover img { transform: scale(1.04); }
+    .field-visual__thumb-label {
+      position: absolute;
+      bottom: var(--space-3);
+      left: var(--space-3);
+      background: rgba(44,47,48,0.72);
+      color: white;
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(4px);
+    }
+    .field-stat-row {
+      display: flex;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+      margin-top: var(--space-10);
+    }
+    .field-stat {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      padding-left: var(--space-4);
+      border-left: 2px solid var(--color-accent);
+    }
+    .field-stat__value {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-extrabold);
+      color: var(--color-ink);
+      letter-spacing: var(--tracking-tight);
+      line-height: 1;
+    }
+    .field-stat__label {
+      font-size: var(--text-xs);
+      color: var(--color-ink-faint);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+    }
+    @media (max-width: 640px) {
+      .field-visual { grid-template-columns: 1fr; grid-template-rows: 260px 160px 160px; height: auto; }
+      .field-visual__hero { grid-row: auto; }
+    }
+
+
+    /* ── INFLATABLE CONCEPT 2: Obstacle catalogue ────────────── */
+    .obstacle-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+      margin-bottom: var(--space-16);
+    }
+    .obstacle-intro__img {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+    .obstacle-intro__img img,
+    .obstacle-intro__img .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .obstacle-intro__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .obstacle-intro__eyebrow {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-accent-dark);
+    }
+    .obstacle-intro__heading {
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-tight);
+      color: var(--color-ink);
+      line-height: var(--leading-tight);
+    }
+    .obstacle-intro__desc {
+      font-size: var(--text-base);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-relaxed);
+    }
+    .obstacle-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .obstacle-check {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-snug);
+    }
+    .obstacle-check__dot {
+      width: 20px;
+      height: 20px;
+      background: var(--color-accent-tint);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .obstacle-check__dot svg { color: var(--color-accent-dark); }
+
+    /* Obstacle type cards grid */
+    .obstacle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+    @media (max-width: 900px) {
+      .obstacle-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .obstacle-grid { grid-template-columns: 1fr; }
+    }
+    .obstacle-card {
+      background: var(--color-surface-high);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1.5px solid var(--color-surface-mid);
+    }
+    .obstacle-card__img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .obstacle-card__img img,
+    .obstacle-card__img .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s var(--ease-spring);
+    }
+    .obstacle-card:hover .obstacle-card__img img { transform: scale(1.05); }
+    .obstacle-card__body {
+      padding: var(--space-4) var(--space-5) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .obstacle-card__name {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      color: var(--color-ink);
+    }
+    .obstacle-card__desc {
+      font-size: var(--text-xs);
+      color: var(--color-ink-muted);
+      line-height: var(--leading-snug);
+    }
+    @media (max-width: 900px) {
+      .obstacle-intro { grid-template-columns: 1fr; }
+    }
+
+    /* ── Setup timeline ──────────────────────────────────────── */
+    .setup-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+    @media (max-width: 640px) {
+      .setup-steps { grid-template-columns: 1fr; }
+    }
+    .setup-step {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .setup-step__number {
+      font-size: clamp(60px, 8vw, 88px);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-tight);
+      color: var(--color-accent);
+      line-height: 1;
+    }
+    .setup-step__title {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      color: white;
+      letter-spacing: var(--tracking-tight);
+    }
+    .setup-step__desc {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.5);
+      line-height: var(--leading-relaxed);
+    }
+    .setup-step__img {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      margin-top: var(--space-2);
+    }
+    .setup-step__img img,
+    .setup-step__img .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Shared check icon inline */
+    .check-svg { display: inline-block; flex-shrink: 0; }
+
+  </style>
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="Laser Tag 2 U — Home">
+      <span class="nav__logo-text">LASER TAG <span>2 U</span></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html" class="nav__link">Home</a></li>
+      <li><a href="packages.html" class="nav__link">Packages</a></li>
+      <li><a href="events.html" class="nav__link">Event Types</a></li>
+      <li><a href="about.html" class="nav__link">About</a></li>
+      <li><a href="faq.html" class="nav__link">FAQ</a></li>
+    </ul>
+    <div class="nav__actions">
+      <button class="btn btn--primary btn--sm">Get a Quote</button>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ── PAGE INTRO ──────────────────────────────────────────── -->
+<header style="background: var(--color-ink); padding: var(--space-16) 0 var(--space-12);">
+  <div class="container">
+    <p style="color: var(--color-accent); font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: var(--tracking-widest); text-transform: uppercase; margin-bottom: var(--space-4);">Design Test Page</p>
+    <h1 style="color: white; font-size: var(--text-4xl); font-weight: var(--weight-extrabold); letter-spacing: var(--tracking-tight); line-height: var(--leading-tight); margin-bottom: var(--space-6);">Gear spotlight concepts</h1>
+    <p style="color: rgba(255,255,255,0.55); font-size: var(--text-lg); max-width: 640px; line-height: var(--leading-relaxed);">Two gear types, two layout approaches each. Grey blocks mark photos not yet supplied — replace them with real gear shots and the designs come alive. All copy is real and ready to use.</p>
+    <div style="display: flex; gap: var(--space-3); margin-top: var(--space-8); flex-wrap: wrap;">
+      <a href="#tagger-t1" class="btn btn--ghost" style="font-size: var(--text-sm);">T1: Tagger Dark Hero</a>
+      <a href="#tagger-t2" class="btn btn--ghost" style="font-size: var(--text-sm);">T2: Tagger Spec Breakdown</a>
+      <a href="#inflatable-i1" class="btn btn--ghost" style="font-size: var(--text-sm);">I1: Battlefield Visual</a>
+      <a href="#inflatable-i2" class="btn btn--ghost" style="font-size: var(--text-sm);">I2: Obstacle Catalogue</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     ░░ TAGGERS ░░
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" style="background: var(--color-accent); color: var(--color-ink);">
+  <span style="font-size: 1rem;">⚡</span>
+  <span style="color: var(--color-ink); font-weight: 700;">The Taggers</span>
+  <span style="color: rgba(0,0,0,0.45);">Cobra Phaser infrared combat system — two layout concepts below</span>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     T1 — TAGGER DARK HERO
+     Full-bleed dark section, watermark product name,
+     large image + right-side copy, stat strip along bottom
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="tagger-t1">
+  <span style="color: var(--color-accent);">T1</span>
+  <span class="concept-label__title">Tagger Dark Hero</span>
+  <span class="concept-label__note">→ premium product-page feel; strong first impression of quality</span>
+</div>
+
+<section class="tagger-hero">
+  <div class="tagger-hero__watermark" aria-hidden="true">COBRA PHASER</div>
+  <div class="container tagger-hero__inner">
+    <div class="tagger-hero__layout">
+
+      <div>
+        <p class="tagger-hero__eyebrow">The gear</p>
+        <h2 class="tagger-hero__heading">Cobra <em>Phaser</em><br>Infrared Taggers</h2>
+        <p class="tagger-hero__desc">The same infrared combat system used in commercial laser tag arenas — brought straight to your event. Instant hit detection, real scope sights, and rugged enough to run back-to-back sessions all day.</p>
+        <div class="tagger-hero__specs">
+          <div class="tagger-hero__spec-row">
+            <span class="tagger-hero__spec-name">Outdoor range</span>
+            <span class="tagger-hero__spec-val">100m+</span>
+          </div>
+          <div class="tagger-hero__spec-row">
+            <span class="tagger-hero__spec-name">Battery life</span>
+            <span class="tagger-hero__spec-val">8 hours</span>
+          </div>
+          <div class="tagger-hero__spec-row">
+            <span class="tagger-hero__spec-name">Tagger weight</span>
+            <span class="tagger-hero__spec-val">1.6kg — comfortable for younger players</span>
+          </div>
+          <div class="tagger-hero__spec-row">
+            <span class="tagger-hero__spec-name">Sights</span>
+            <span class="tagger-hero__spec-val">Real red dot scope</span>
+          </div>
+          <div class="tagger-hero__spec-row">
+            <span class="tagger-hero__spec-name">Sensor headbands</span>
+            <span class="tagger-hero__spec-val">Lightweight — fast player changeover</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+          <button class="btn btn--primary">Get a Quote</button>
+          <button class="btn btn--ghost">See Packages</button>
+        </div>
+      </div>
+
+      <div class="tagger-hero__img-wrap">
+        <!-- REPLACE WITH: Cobra Phaser tagger held up / product shot on dark bg -->
+        <div class="img-placeholder" style="border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;">
+          <span class="img-placeholder__icon">📷</span>
+          <span class="img-placeholder__label">Cobra Phaser tagger<br>product / hero shot</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     T2 — TAGGER SPEC BREAKDOWN
+     Light section, image mosaic left, detailed spec rows right.
+     More informative — answers "what does that actually mean?"
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="tagger-t2">
+  <span style="color: var(--color-accent);">T2</span>
+  <span class="concept-label__title">Tagger Spec Breakdown</span>
+  <span class="concept-label__note">→ answers the "but is it good gear?" question; builds trust with detail</span>
+</div>
+
+<section class="section bg-surface">
+  <div class="container">
+    <div class="tagger-specs">
+
+      <!-- Image cluster: one main + two thumbs -->
+      <div class="tagger-specs__images">
+        <div class="tagger-specs__img-main">
+          <!-- REPLACE WITH: Tagger in action at an event (player holding it) -->
+          <div class="img-placeholder">
+            <span class="img-placeholder__icon">📷</span>
+            <span class="img-placeholder__label">Player holding / firing<br>the Cobra Phaser tagger</span>
+          </div>
+        </div>
+        <div class="tagger-specs__img-thumb">
+          <!-- REPLACE WITH: Close-up of tagger body / sensors -->
+          <div class="img-placeholder">
+            <span class="img-placeholder__icon">📷</span>
+            <span class="img-placeholder__label">Tagger close-up<br>(sensors / body detail)</span>
+          </div>
+        </div>
+        <div class="tagger-specs__img-thumb">
+          <!-- REPLACE WITH: Taggers laid out / set up ready for a session -->
+          <div class="img-placeholder">
+            <span class="img-placeholder__icon">📷</span>
+            <span class="img-placeholder__label">Taggers laid out<br>ready for a session</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spec breakdown -->
+      <div class="tagger-specs__body">
+        <div class="tagger-specs__intro">
+          <p class="tagger-specs__eyebrow">Cobra Phaser — by Delta Strike</p>
+          <h2 class="tagger-specs__heading">Professional gear.<br><em>Not toy guns.</em></h2>
+          <p class="tagger-specs__desc">We invested in the same technology used by commercial laser tag venues — because we wanted your players to have a real experience, not a watered-down one. Here's what that means in practice.</p>
+        </div>
+
+        <div class="tagger-spec-list">
+
+          <div class="tagger-spec-row">
+            <div class="tagger-spec-row__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+            </div>
+            <div class="tagger-spec-row__body">
+              <span class="tagger-spec-row__label">Infrared (IR) combat system</span>
+              <span class="tagger-spec-row__value">Uses the same invisible infrared beam technology as commercial venues — no lasers, completely eye-safe, works in bright sunlight and low light.</span>
+            </div>
+          </div>
+
+          <div class="tagger-spec-row">
+            <div class="tagger-spec-row__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.159.69.159 1.006 0z"/></svg>
+            </div>
+            <div class="tagger-spec-row__body">
+              <span class="tagger-spec-row__label">150m outdoor range</span>
+              <span class="tagger-spec-row__value">Accurate hits across a full-size oval. More than enough range to create genuine tactical gameplay — hiding behind cover actually matters.</span>
+            </div>
+          </div>
+
+          <div class="tagger-spec-row">
+            <div class="tagger-spec-row__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+            </div>
+            <div class="tagger-spec-row__body">
+              <span class="tagger-spec-row__label">Multiple game modes built-in</span>
+              <span class="tagger-spec-row__value">Team vs team, free-for-all, VIP protection and more. Our Mission Director selects the right mode for your group size and ages.</span>
+            </div>
+          </div>
+
+          <div class="tagger-spec-row">
+            <div class="tagger-spec-row__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+            </div>
+            <div class="tagger-spec-row__body">
+              <span class="tagger-spec-row__label">Instant hit detection + audio feedback</span>
+              <span class="tagger-spec-row__value">Players know the moment they're hit — sound and vibration feedback. No arguments, no "I didn't feel it." Clean, fair gameplay every time.</span>
+            </div>
+          </div>
+
+          <div class="tagger-spec-row">
+            <div class="tagger-spec-row__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="tagger-spec-row__body">
+              <span class="tagger-spec-row__label">8+ hour battery life</span>
+              <span class="tagger-spec-row__value">Full-day events, school fetes, community festivals — one charge gets through them all. No mid-event power issues.</span>
+            </div>
+          </div>
+
+          <div class="tagger-spec-row">
+            <div class="tagger-spec-row__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <div class="tagger-spec-row__body">
+              <span class="tagger-spec-row__label">Rugged, outdoor-rated construction</span>
+              <span class="tagger-spec-row__value">Built to survive being dropped, knocked, rained on. We run these hard at every event — they're built for it.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     ░░ INFLATABLES ░░
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" style="background: var(--color-accent); color: var(--color-ink);">
+  <span style="font-size: 1rem;">🏟️</span>
+  <span style="color: var(--color-ink); font-weight: 700;">The Inflatables</span>
+  <span style="color: rgba(0,0,0,0.45);">Professional PVC obstacle set — two layout concepts below</span>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     I1 — BATTLEFIELD VISUAL
+     Photography-forward mosaic showing the field set up and in use.
+     Emphasises the visual spectacle — "this is what YOUR event could look like"
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="inflatable-i1">
+  <span style="color: var(--color-accent);">I1</span>
+  <span class="concept-label__title">Battlefield Visual</span>
+  <span class="concept-label__note">→ show-don't-tell; makes the event feel real and exciting before they book</span>
+</div>
+
+<section class="section bg-surface-low">
+  <div class="container">
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start; margin-bottom: var(--space-10);">
+      <div>
+        <h2 class="section-headline" style="margin-bottom: var(--space-4);">We build the arena. You play in it.</h2>
+        <p style="font-size: var(--text-base); color: var(--color-ink-muted); line-height: var(--leading-relaxed);">Our inflatable obstacle set transforms any flat space into a proper combat arena in under 20 minutes. Walls, bunkers, T-barriers and cylinders — positioned for natural cover, choke points and fair team balance.</p>
+      </div>
+      <div style="border-left: 2px solid var(--color-surface-mid); padding-left: var(--space-8);">
+        <p style="font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-ink-faint); margin-bottom: var(--space-5);">What's included</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0;">
+          <li style="font-size: var(--text-sm); color: var(--color-ink-muted); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-surface-mid); line-height: var(--leading-snug);">Multiple obstacle shapes — walls, T-barriers, cylinders and corner pieces</li>
+          <li style="font-size: var(--text-sm); color: var(--color-ink-muted); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-surface-mid); line-height: var(--leading-snug);">Commercial-grade PVC — lightweight, stable, safe for all ages</li>
+          <li style="font-size: var(--text-sm); color: var(--color-ink-muted); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-surface-mid); line-height: var(--leading-snug);">Works on grass, synthetic turf, concrete, sports courts and parks</li>
+          <li style="font-size: var(--text-sm); color: var(--color-ink-muted); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-surface-mid); line-height: var(--leading-snug);">Anchored with ground stakes — won't shift mid-game</li>
+          <li style="font-size: var(--text-sm); color: var(--color-ink-muted); padding: var(--space-3) 0; line-height: var(--leading-snug);">Fully packed down and removed after — leaves no trace</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="field-visual">
+      <div class="field-visual__hero">
+        <!-- REPLACE WITH: Wide shot of the full inflatable arena set up at an event -->
+        <div class="img-placeholder">
+          <span class="img-placeholder__icon">📷</span>
+          <span class="img-placeholder__label">Wide shot — full inflatable arena<br>set up and in use at an event</span>
+        </div>
+        <div class="field-visual__hero-caption">
+          <p style="font-size: var(--text-xl); font-weight: var(--weight-bold); color: white; letter-spacing: var(--tracking-tight); line-height: var(--leading-snug);">A proper arena. <span style="color: var(--color-accent);">Anywhere.</span></p>
+        </div>
+      </div>
+      <div class="field-visual__thumb">
+        <!-- REPLACE WITH: Players using cover / crouching behind an inflatable -->
+        <div class="img-placeholder">
+          <span class="img-placeholder__icon">📷</span>
+          <span class="img-placeholder__label">Players using cover<br>behind inflatables</span>
+        </div>
+        <span class="field-visual__thumb-label">In play</span>
+      </div>
+      <div class="field-visual__thumb">
+        <!-- REPLACE WITH: Close-up of one inflatable obstacle (cylinder or bunker) -->
+        <div class="img-placeholder">
+          <span class="img-placeholder__icon">📷</span>
+          <span class="img-placeholder__label">Close-up of single obstacle<br>(cylinder / bunker detail)</span>
+        </div>
+        <span class="field-visual__thumb-label">The obstacles</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     I2 — OBSTACLE CATALOGUE + SETUP STORY
+     Structured breakdown of the obstacle types + a 3-step
+     setup timeline. Answers "what exactly do I get?"
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="inflatable-i2">
+  <span style="color: var(--color-accent);">I2</span>
+  <span class="concept-label__title">Obstacle Catalogue + Setup Story</span>
+  <span class="concept-label__note">→ answers "what exactly do I get?"; reassures event organisers</span>
+</div>
+
+<section class="section bg-surface">
+  <div class="container">
+
+    <!-- Intro split -->
+    <div class="obstacle-intro">
+      <div class="obstacle-intro__img">
+        <!-- REPLACE WITH: Overhead / wide shot of obstacle layout on a field -->
+        <div class="img-placeholder">
+          <span class="img-placeholder__icon">📷</span>
+          <span class="img-placeholder__label">Overhead or wide shot<br>of full obstacle layout</span>
+        </div>
+      </div>
+      <div class="obstacle-intro__body">
+        <p class="obstacle-intro__eyebrow">What you get</p>
+        <h2 class="obstacle-intro__heading">A full obstacle set. Properly positioned.</h2>
+        <p class="obstacle-intro__desc">We don't just drop inflatables in a circle and call it a day. Each setup is positioned to create a balanced, tactically interesting field — with natural cover on both sides, clear sightlines and defined safe zones.</p>
+        <div class="obstacle-checklist">
+          <div class="obstacle-check">
+            <span class="obstacle-check__dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" width="11" height="11" class="check-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </span>
+            Multiple obstacle shapes — walls, T-barriers, cylinders and corner pieces
+          </div>
+          <div class="obstacle-check">
+            <span class="obstacle-check__dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" width="11" height="11" class="check-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </span>
+            Commercial-grade PVC — lightweight, stable, safe for all ages
+          </div>
+          <div class="obstacle-check">
+            <span class="obstacle-check__dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" width="11" height="11" class="check-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </span>
+            Works on grass, synthetic turf, concrete, sports courts and parks
+          </div>
+          <div class="obstacle-check">
+            <span class="obstacle-check__dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" width="11" height="11" class="check-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </span>
+            Anchored with ground stakes — won't shift mid-game
+          </div>
+          <div class="obstacle-check">
+            <span class="obstacle-check__dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" width="11" height="11" class="check-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </span>
+            Fully packed down and removed after — leaves no trace
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Obstacle type cards -->
+    <h3 style="font-size: var(--text-lg); font-weight: var(--weight-bold); color: var(--color-ink); letter-spacing: var(--tracking-tight); margin-bottom: var(--space-6);">Obstacle types</h3>
+    <div class="obstacle-grid">
+
+      <div class="obstacle-card">
+        <div class="obstacle-card__img">
+          <!-- REPLACE WITH: Straight wall inflatable, clear shot -->
+          <div class="img-placeholder"><span class="img-placeholder__icon">📷</span><span class="img-placeholder__label">Straight wall inflatable</span></div>
+        </div>
+        <div class="obstacle-card__body">
+          <span class="obstacle-card__name">Straight Wall</span>
+          <span class="obstacle-card__desc">Full-length cover for kneeling players. Creates a strong defensive line and natural team base boundary.</span>
+        </div>
+      </div>
+
+      <div class="obstacle-card">
+        <div class="obstacle-card__img">
+          <!-- REPLACE WITH: T-barrier inflatable from side angle -->
+          <div class="img-placeholder"><span class="img-placeholder__icon">📷</span><span class="img-placeholder__label">T-barrier inflatable</span></div>
+        </div>
+        <div class="obstacle-card__body">
+          <span class="obstacle-card__name">T-Barrier</span>
+          <span class="obstacle-card__desc">Angled cover allowing a player to protect two directions at once. The key mid-field obstacle for tactical play.</span>
+        </div>
+      </div>
+
+      <div class="obstacle-card">
+        <div class="obstacle-card__img">
+          <!-- REPLACE WITH: Cylinder inflatable on field -->
+          <div class="img-placeholder"><span class="img-placeholder__icon">📷</span><span class="img-placeholder__label">Cylinder inflatable</span></div>
+        </div>
+        <div class="obstacle-card__body">
+          <span class="obstacle-card__name">Cylinder</span>
+          <span class="obstacle-card__desc">360-degree cover. No blind side — players must move tactically to get a clear shot. Great for solo defenders.</span>
+        </div>
+      </div>
+
+      <div class="obstacle-card">
+        <div class="obstacle-card__img">
+          <!-- REPLACE WITH: Corner piece inflatable from above or angle -->
+          <div class="img-placeholder"><span class="img-placeholder__icon">📷</span><span class="img-placeholder__label">Corner piece inflatable</span></div>
+        </div>
+        <div class="obstacle-card__body">
+          <span class="obstacle-card__name">Corner Piece</span>
+          <span class="obstacle-card__desc">L-shaped cover ideal for protecting flanks and setting up ambush positions. Common near team start zones.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Setup timeline — sits inside I2 but on dark bg for contrast -->
+<section class="section" style="background: var(--color-ink);">
+  <div class="container">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); margin-bottom: var(--space-4);">
+      <h3 style="font-size: var(--text-2xl); font-weight: var(--weight-extrabold); color: white; letter-spacing: var(--tracking-tight);">From empty field to ready-to-play</h3>
+      <p style="font-size: var(--text-sm); color: rgba(255,255,255,0.35);">Typical setup for a medium event</p>
+    </div>
+    <div class="setup-steps">
+
+      <div class="setup-step">
+        <span class="setup-step__number">01</span>
+        <div class="setup-step__img">
+          <!-- REPLACE WITH: Gear being unloaded from vehicle / set out on ground -->
+          <div class="img-placeholder" style="background: rgba(255,255,255,0.04);">
+            <span class="img-placeholder__icon" style="opacity:0.15;">📷</span>
+            <span class="img-placeholder__label" style="color:rgba(255,255,255,0.3);">Gear arriving / being unloaded</span>
+          </div>
+        </div>
+        <span class="setup-step__title">We arrive and assess the space</span>
+        <span class="setup-step__desc">We scope the area, mark team start zones and decide obstacle positions to balance the field for your group size. Takes about 5 minutes.</span>
+      </div>
+
+      <div class="setup-step">
+        <span class="setup-step__number">02</span>
+        <div class="setup-step__img">
+          <!-- REPLACE WITH: Inflatables being pumped up / positioned on field -->
+          <div class="img-placeholder" style="background: rgba(255,255,255,0.04);">
+            <span class="img-placeholder__icon" style="opacity:0.15;">📷</span>
+            <span class="img-placeholder__label" style="color:rgba(255,255,255,0.3);">Inflatables being set up on field</span>
+          </div>
+        </div>
+        <span class="setup-step__title">Inflatables up in under 15 minutes</span>
+        <span class="setup-step__desc">We inflate, position and stake every obstacle. The field is configured fresh for each session — players never see the same layout twice.</span>
+      </div>
+
+      <div class="setup-step">
+        <span class="setup-step__number">03</span>
+        <div class="setup-step__img">
+          <!-- REPLACE WITH: Players ready to go / holding taggers at start of game -->
+          <div class="img-placeholder" style="background: rgba(255,255,255,0.04);">
+            <span class="img-placeholder__icon" style="opacity:0.15;">📷</span>
+            <span class="img-placeholder__label" style="color:rgba(255,255,255,0.3);">Players geared up, ready to start</span>
+          </div>
+        </div>
+        <span class="setup-step__title">Players gear up and battle begins</span>
+        <span class="setup-step__desc">Taggers distributed, teams assigned, rules briefed. Your Mission Director runs the game from the first whistle to the last shot.</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── IMPLEMENTATION NOTES ─────────────────────────────────── -->
+<section class="section bg-surface-low">
+  <div class="container" style="max-width: 720px;">
+    <p style="font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-ink-muted); margin-bottom: var(--space-4);">Photos needed to complete these sections</p>
+    <ul style="display: flex; flex-direction: column; gap: var(--space-3); font-size: var(--text-sm); color: var(--color-ink-muted); line-height: var(--leading-relaxed);">
+      <li><strong style="color: var(--color-ink);">Taggers — T1</strong> needs 1 image: hero product/action shot of the Cobra Phaser against a dark background.</li>
+      <li><strong style="color: var(--color-ink);">Taggers — T2</strong> needs 3 images: player holding tagger, close-up of tagger body/sensors, taggers laid out ready for a session.</li>
+      <li><strong style="color: var(--color-ink);">Inflatables — I1</strong> needs 3 images: full arena wide shot, players using cover, close-up of one obstacle.</li>
+      <li><strong style="color: var(--color-ink);">Inflatables — I2</strong> needs 9 images: overhead/wide layout shot, 4 individual obstacle type shots, 3 setup timeline shots (unloading, inflating, players ready).</li>
+      <li><strong style="color: var(--color-ink);">Mix and match:</strong> T1 + I1 = most visual, photography-driven. T2 + I2 = most informative, suits event organisers comparing vendors.</li>
+    </ul>
+  </div>
+</section>
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/animations.js" defer></script>
+
+</body>
+</html>
