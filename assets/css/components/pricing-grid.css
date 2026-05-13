@@ -373,7 +373,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-8);
-  align-items: start;
+  align-items: stretch;
 }
 
 .price-builder__controls {
@@ -472,8 +472,6 @@
   background-color: var(--color-ink);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
-  position: sticky;
-  top: calc(var(--nav-height, 72px) + var(--space-4));
 }
 
 .price-builder__summary-title {
