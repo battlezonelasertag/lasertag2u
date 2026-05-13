@@ -141,7 +141,8 @@
         case 'directors': max = MAX_DIRECTORS;      val = state.directors;    break;
       }
 
-      btn.disabled = (dir === -1 && val <= min) || (dir === 1 && val >= max);
+      const needsMoreTime = key === 'directors' && dir === 1 && totalHours() < 4;
+      btn.disabled = (dir === -1 && val <= min) || (dir === 1 && val >= max) || needsMoreTime;
     });
   }
 
@@ -156,7 +157,9 @@
 
     switch (key) {
       case 'time':
-        state.timeBlocks   = Math.max(0, Math.min(MAX_EXTRA_BLOCKS,  state.timeBlocks   + dir)); break;
+        state.timeBlocks = Math.max(0, Math.min(MAX_EXTRA_BLOCKS, state.timeBlocks + dir));
+        if (totalHours() < 4) state.directors = 0;
+        break;
       case 'taggers':
         state.extraTaggers = Math.max(0, Math.min(MAX_EXTRA_TAGGERS, state.extraTaggers + dir)); break;
       case 'bunkers':
