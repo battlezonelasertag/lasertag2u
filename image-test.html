@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Placement Concepts — LT2U Design Test</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components/nav.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/badge.css">
+  <link rel="stylesheet" href="assets/css/components/cards.css">
+  <link rel="stylesheet" href="assets/css/components/pricing-grid.css">
+  <link rel="stylesheet" href="assets/css/components/testimonials.css">
+  <link rel="stylesheet" href="assets/css/components/footer.css">
+
+  <style>
+    /* ── Test page label ────────────────────────────────────── */
+    .concept-label {
+      background: var(--color-ink);
+      color: var(--color-accent);
+      font-family: monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: var(--space-3) var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .concept-label__title { color: white; font-weight: 600; }
+    .concept-label__placement { color: rgba(255,255,255,0.4); font-weight: normal; }
+
+    /* ── CONCEPT A: Cinematic Break ─────────────────────────── */
+    .img-break {
+      position: relative;
+      height: clamp(320px, 55vh, 600px);
+      overflow: hidden;
+    }
+    .img-break__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .img-break__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(44,47,48,0.72) 0%, rgba(44,47,48,0.1) 50%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-10) var(--space-12);
+    }
+    .img-break__caption {
+      color: white;
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-tight);
+      max-width: 480px;
+      line-height: var(--leading-snug);
+    }
+    .img-break__caption em {
+      color: var(--color-accent);
+      font-style: normal;
+    }
+    @media (max-width: 640px) {
+      .img-break__overlay { padding: var(--space-6); }
+      .img-break__caption { font-size: var(--text-xl); }
+    }
+
+    /* ── CONCEPT B: Horizontal Scroll Strip ─────────────────── */
+    .photo-strip-section { overflow: hidden; }
+    .photo-strip-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-6);
+    }
+    .photo-strip {
+      display: flex;
+      gap: var(--space-4);
+      overflow-x: auto;
+      padding: 0 max(var(--space-6), calc((100vw - 1200px) / 2));
+      padding-bottom: var(--space-4);
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .photo-strip::-webkit-scrollbar { display: none; }
+    .photo-strip__item {
+      flex-shrink: 0;
+      width: clamp(240px, 30vw, 360px);
+      scroll-snap-align: start;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      position: relative;
+    }
+    .photo-strip__item img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s var(--ease-spring);
+    }
+    .photo-strip__item:hover img { transform: scale(1.04); }
+    .photo-strip__label {
+      position: absolute;
+      bottom: var(--space-3);
+      left: var(--space-3);
+      background: rgba(44,47,48,0.75);
+      color: white;
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(4px);
+    }
+    .photo-strip__fade {
+      position: relative;
+    }
+    .photo-strip__fade::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      background: linear-gradient(to right, transparent, var(--color-surface-low));
+      pointer-events: none;
+    }
+
+    /* ── CONCEPT C: Photo + Testimonial Split ───────────────── */
+    .photo-quote {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      min-height: 440px;
+    }
+    .photo-quote__img {
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-quote__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-quote__content {
+      background: var(--color-ink);
+      padding: var(--space-10) var(--space-10);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-6);
+    }
+    .photo-quote__stars {
+      color: var(--color-accent);
+      font-size: var(--text-lg);
+      letter-spacing: 0.05em;
+    }
+    .photo-quote__text {
+      font-size: var(--text-xl);
+      font-weight: var(--weight-medium);
+      color: white;
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-tight);
+    }
+    .photo-quote__text::before { content: '\201C'; }
+    .photo-quote__text::after  { content: '\201D'; }
+    .photo-quote__author {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .photo-quote__name {
+      font-weight: var(--weight-semibold);
+      color: white;
+      font-size: var(--text-sm);
+    }
+    .photo-quote__role {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.45);
+    }
+    @media (max-width: 768px) {
+      .photo-quote { grid-template-columns: 1fr; }
+      .photo-quote__img { aspect-ratio: 16/9; }
+      .photo-quote__img img { height: 100%; }
+      .photo-quote__content { padding: var(--space-8); }
+      .photo-quote__text { font-size: var(--text-lg); }
+    }
+
+    /* ── CONCEPT D: Package Card with Image Header ──────────── */
+    .img-package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    @media (max-width: 900px) {
+      .img-package-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    }
+    .img-package-card {
+      background: var(--color-surface-high);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1.5px solid var(--color-surface-mid);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: transform 0.2s var(--ease-spring), box-shadow 0.2s;
+    }
+    .img-package-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .img-package-card--popular {
+      border-color: var(--color-accent);
+    }
+    .img-package-card__photo {
+      position: relative;
+      overflow: hidden;
+    }
+    .img-package-card__photo img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s var(--ease-spring);
+    }
+    .img-package-card:hover .img-package-card__photo img { transform: scale(1.04); }
+    .img-package-card__popular-badge {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      background: var(--color-accent);
+      color: var(--color-ink);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+    }
+    .img-package-card__body {
+      padding: var(--space-6);
+    }
+    .img-package-card__name {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      margin-bottom: var(--space-1);
+    }
+    .img-package-card__headline {
+      font-size: var(--text-sm);
+      color: var(--color-ink-muted);
+      margin-bottom: var(--space-5);
+    }
+    .img-package-card__price {
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-extrabold);
+      color: var(--color-ink);
+      letter-spacing: var(--tracking-tight);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+    .img-package-card__price-symbol {
+      font-size: var(--text-xl);
+      font-weight: var(--weight-bold);
+      vertical-align: super;
+    }
+    .img-package-card__note {
+      font-size: var(--text-xs);
+      color: var(--color-ink-faint);
+      margin-bottom: var(--space-5);
+    }
+    .img-package-card__divider {
+      border: none;
+      border-top: 1px solid var(--color-surface-mid);
+      margin: 0 0 var(--space-5);
+    }
+    .img-package-card__features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      font-size: var(--text-sm);
+      color: var(--color-ink-muted);
+    }
+    .img-package-card__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .img-package-card__feature svg { color: var(--color-accent-dark); flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="Laser Tag 2 U — Home">
+      <span class="nav__logo-text">LASER TAG <span>2 U</span></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html" class="nav__link">Home</a></li>
+      <li><a href="packages.html" class="nav__link">Packages</a></li>
+      <li><a href="events.html" class="nav__link">Event Types</a></li>
+      <li><a href="about.html" class="nav__link">About</a></li>
+      <li><a href="faq.html" class="nav__link">FAQ</a></li>
+    </ul>
+    <div class="nav__actions">
+      <button class="btn btn--primary btn--sm">Get a Quote</button>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ── PAGE INTRO ──────────────────────────────────────────── -->
+<header style="background: var(--color-ink); padding: var(--space-16) 0 var(--space-12);">
+  <div class="container">
+    <p style="color: var(--color-accent); font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: var(--tracking-widest); text-transform: uppercase; margin-bottom: var(--space-4);">Design Test Page</p>
+    <h1 style="color: white; font-size: var(--text-4xl); font-weight: var(--weight-extrabold); letter-spacing: var(--tracking-tight); line-height: var(--leading-tight); margin-bottom: var(--space-6);">Image placement concepts</h1>
+    <p style="color: rgba(255,255,255,0.55); font-size: var(--text-lg); max-width: 600px; line-height: var(--leading-relaxed);">Four approaches to integrating photography naturally into the site. Each section is labelled with what it is and where it would sit on the real pages. Images currently use the existing event photos as placeholders — swap in real shots when ready.</p>
+    <div style="display: flex; gap: var(--space-3); margin-top: var(--space-8); flex-wrap: wrap;">
+      <a href="#concept-a" class="btn btn--ghost" style="font-size: var(--text-sm);">A: Cinematic Break</a>
+      <a href="#concept-b" class="btn btn--ghost" style="font-size: var(--text-sm);">B: Scroll Strip</a>
+      <a href="#concept-c" class="btn btn--ghost" style="font-size: var(--text-sm);">C: Photo + Quote</a>
+      <a href="#concept-d" class="btn btn--ghost" style="font-size: var(--text-sm);">D: Card Image Header</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     CONCEPT A — CINEMATIC BREAK
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="concept-a">
+  <span style="color: var(--color-accent);">A</span>
+  <span class="concept-label__title">Cinematic Break</span>
+  <span class="concept-label__placement">→ packages.html between pricing cards and add-ons table; or any page as a section separator</span>
+</div>
+
+<!-- Simulate pricing context above -->
+<section class="section bg-surface" style="padding-bottom: 0;">
+  <div class="container">
+    <div class="section-header--centered">
+      <p style="color: var(--color-ink-muted); font-size: var(--text-sm);">↑ Pricing cards sit above this. The break creates breathing room and shows the experience before the user reaches the add-ons table.</p>
+    </div>
+  </div>
+</section>
+
+<div class="img-break">
+  <img
+    class="img-break__img"
+    src="assets/images/events/school-fetes/home-school-fetes.jpg"
+    alt="Children playing laser tag at a school fete in NSW"
+  >
+  <div class="img-break__overlay">
+    <p class="img-break__caption">Run back-to-back sessions. <em>All day.</em></p>
+  </div>
+</div>
+
+<section class="section bg-surface-low" style="padding-top: 0;">
+  <div class="container">
+    <p style="color: var(--color-ink-muted); font-size: var(--text-sm); margin-top: var(--space-6);">↓ Add-ons table sits below this.</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     CONCEPT B — HORIZONTAL SCROLL STRIP
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="concept-b">
+  <span style="color: var(--color-accent);">B</span>
+  <span class="concept-label__title">Horizontal Scroll Strip</span>
+  <span class="concept-label__placement">→ packages.html or any page, above the footer CTA — hints at a larger gallery to come</span>
+</div>
+
+<section class="section photo-strip-section bg-surface">
+  <div class="container">
+    <div class="photo-strip-header">
+      <div>
+        <p style="font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-ink-muted); margin-bottom: var(--space-2);">From our events</p>
+        <h2 class="section-headline" style="margin-bottom: 0;">See it in action</h2>
+      </div>
+      <button class="btn btn--ghost-ink" style="flex-shrink:0;">Get a Quote</button>
+    </div>
+  </div>
+  <div class="photo-strip__fade">
+    <div class="photo-strip">
+      <div class="photo-strip__item">
+        <img src="assets/images/events/school-fetes/home-school-fetes.jpg" alt="School fete laser tag NSW" loading="lazy">
+        <span class="photo-strip__label">School Fete</span>
+      </div>
+      <div class="photo-strip__item">
+        <img src="assets/images/events/council/home-council-events.jpg" alt="Council event laser tag NSW" loading="lazy">
+        <span class="photo-strip__label">Community Event</span>
+      </div>
+      <div class="photo-strip__item">
+        <img src="assets/images/events/sports/home-sports-events.jpg" alt="Sports club laser tag NSW" loading="lazy">
+        <span class="photo-strip__label">Sports Club</span>
+      </div>
+      <div class="photo-strip__item">
+        <img src="assets/images/events/birthday/home-birthday-events.jpg" alt="Birthday party laser tag NSW" loading="lazy">
+        <span class="photo-strip__label">Birthday Party</span>
+      </div>
+      <div class="photo-strip__item">
+        <img src="assets/images/hero/differentiatior.jpg" alt="Laser tag operator NSW" loading="lazy">
+        <span class="photo-strip__label">Setup & Gear</span>
+      </div>
+      <div class="photo-strip__item">
+        <img src="assets/images/events/school-fetes/home-school-fetes.jpg" alt="School fete laser tag NSW" loading="lazy">
+        <span class="photo-strip__label">School Fete</span>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-top: var(--space-4);">
+    <p style="font-size: var(--text-sm); color: var(--color-ink-faint);">Scroll to see more → (strip fades right to hint at overflow)</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     CONCEPT C — PHOTO + TESTIMONIAL SPLIT
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="concept-c">
+  <span style="color: var(--color-accent);">C</span>
+  <span class="concept-label__title">Photo + Testimonial Split</span>
+  <span class="concept-label__placement">→ packages.html below the pricing cards — adds social proof at the point of decision, currently no testimonials on this page</span>
+</div>
+
+<section class="section bg-surface-low">
+  <div class="container">
+    <div class="photo-quote reveal">
+      <div class="photo-quote__img">
+        <img
+          src="assets/images/events/council/home-council-events.jpg"
+          alt="Laser Tag 2 U at a community event in NSW"
+          loading="lazy"
+        >
+      </div>
+      <div class="photo-quote__content">
+        <div class="photo-quote__stars">★★★★★</div>
+        <p class="photo-quote__text">We booked LT2U for our council community day and they put through over 400 players across 6 hours. Professional, efficient and the kids absolutely loved it. The staff managed the crowd flawlessly.</p>
+        <div class="photo-quote__author">
+          <p class="photo-quote__name">Mark D.</p>
+          <p class="photo-quote__role">Events Coordinator, Port Stephens Council</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     CONCEPT D — PACKAGE CARDS WITH IMAGE HEADER
+     ════════════════════════════════════════════════════════════ -->
+
+<div class="concept-label" id="concept-d">
+  <span style="color: var(--color-accent);">D</span>
+  <span class="concept-label__title">Package Cards with Image Header</span>
+  <span class="concept-label__placement">→ packages.html replacing or supplementing the current pricing grid — each card shows what that event type looks like</span>
+</div>
+
+<section class="section bg-surface">
+  <div class="container">
+
+    <div class="section-header--centered reveal" style="margin-bottom: var(--space-10);">
+      <h2 class="section-headline">Choose your package</h2>
+      <p style="color: var(--color-ink-muted);">Every package includes delivery, setup, operators and packdown. Shown with real events as context.</p>
+    </div>
+
+    <div class="img-package-grid reveal-group">
+
+      <!-- Party Pack -->
+      <div class="img-package-card">
+        <div class="img-package-card__photo">
+          <img src="assets/images/events/birthday/home-birthday-events.jpg" alt="Birthday party laser tag" loading="lazy">
+        </div>
+        <div class="img-package-card__body">
+          <p class="img-package-card__name">Party Pack</p>
+          <p class="img-package-card__headline">Birthday parties, small groups &amp; private events</p>
+          <div class="img-package-card__price"><span class="img-package-card__price-symbol">$</span>550</div>
+          <p class="img-package-card__note">Inc. GST &nbsp;·&nbsp; 60 min play time</p>
+          <hr class="img-package-card__divider">
+          <ul class="img-package-card__features">
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>10 Cobra Phaser taggers</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>2 Medic Box respawn stations</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Mission Director</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Delivery, setup &amp; packdown</li>
+          </ul>
+          <button class="btn btn--secondary" style="width:100%;justify-content:center;">Get a Quote</button>
+        </div>
+      </div>
+
+      <!-- Group Session (Popular) -->
+      <div class="img-package-card img-package-card--popular">
+        <div class="img-package-card__photo">
+          <img src="assets/images/events/school-fetes/home-school-fetes.jpg" alt="School event laser tag" loading="lazy">
+          <span class="img-package-card__popular-badge">Most Popular</span>
+        </div>
+        <div class="img-package-card__body">
+          <p class="img-package-card__name">Group Session</p>
+          <p class="img-package-card__headline">School activity days, youth groups &amp; sports clubs</p>
+          <div class="img-package-card__price"><span class="img-package-card__price-symbol">$</span>648</div>
+          <p class="img-package-card__note">Inc. GST &nbsp;·&nbsp; 120 min play time</p>
+          <hr class="img-package-card__divider">
+          <ul class="img-package-card__features">
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>10 Cobra Phaser taggers</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>2 Medic Box respawn stations</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Mission Director</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Delivery, setup &amp; packdown</li>
+          </ul>
+          <button class="btn btn--primary" style="width:100%;justify-content:center;">Get a Quote</button>
+        </div>
+      </div>
+
+      <!-- Community Event -->
+      <div class="img-package-card">
+        <div class="img-package-card__photo">
+          <img src="assets/images/events/council/home-council-events.jpg" alt="Community event laser tag" loading="lazy">
+        </div>
+        <div class="img-package-card__body">
+          <p class="img-package-card__name">Community Event</p>
+          <p class="img-package-card__headline">School fetes, council events &amp; large community days</p>
+          <div class="img-package-card__price"><span class="img-package-card__price-symbol">$</span>1,046</div>
+          <p class="img-package-card__note">Inc. GST &nbsp;·&nbsp; 180 min &nbsp;·&nbsp; 20 taggers</p>
+          <hr class="img-package-card__divider">
+          <ul class="img-package-card__features">
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>20 Cobra Phaser taggers</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>2 Medic Box respawn stations</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Mission Director</li>
+            <li class="img-package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Delivery, setup &amp; packdown</li>
+          </ul>
+          <button class="btn btn--secondary" style="width:100%;justify-content:center;">Get a Quote</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER NOTE ─────────────────────────────────────────── -->
+<section class="section bg-surface-low">
+  <div class="container" style="max-width: 700px;">
+    <p style="font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-ink-muted); margin-bottom: var(--space-4);">Implementation notes</p>
+    <ul style="display: flex; flex-direction: column; gap: var(--space-3); font-size: var(--text-sm); color: var(--color-ink-muted); line-height: var(--leading-relaxed);">
+      <li><strong style="color: var(--color-ink);">Concept A</strong> — One image, minimal code. Best immediate impact once you have a strong action shot. The caption is optional and can be removed.</li>
+      <li><strong style="color: var(--color-ink);">Concept B</strong> — Works with as few as 4 images. Scales naturally as you add more. The fade-right hint encourages scrolling and implies there's more to see.</li>
+      <li><strong style="color: var(--color-ink);">Concept C</strong> — Pairs well with any testimonial. The photo makes the quote feel like a real event rather than a copywritten blurb. Strong trust signal on the pricing page where there's currently nothing like this.</li>
+      <li><strong style="color: var(--color-ink);">Concept D</strong> — Biggest structural change — replaces the existing card design. Each card gets a matched event-type photo (birthday → birthday shot, community event → crowd shot, etc.). High visual impact but requires one good photo per package type.</li>
+    </ul>
+  </div>
+</section>
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/animations.js" defer></script>
+
+</body>
+</html>
