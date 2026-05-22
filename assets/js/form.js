@@ -5,13 +5,6 @@
 (function () {
   'use strict';
 
-  /* ── Configuration ────────────────────────────────────────── */
-
-  // Replace with your Formspree endpoint or Netlify Forms action
-  // e.g. 'https://formspree.io/f/YOUR_FORM_ID' or '/_netlify/submit'
-  const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-  const USE_NETLIFY = false; // Set to true when deploying on Netlify
-
   /* ── Validation Rules ─────────────────────────────────────── */
 
   const VALIDATORS = {
@@ -139,20 +132,17 @@
       submitBtn.disabled = true;
     }
 
-    const data = new FormData(form);
-
-    // Add source page
-    data.append('_source_page', window.location.pathname);
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((value, key) => { payload[key] = value; });
+    payload._source_page = window.location.pathname;
 
     try {
-      const response = await fetch(
-        USE_NETLIFY ? form.action : FORM_ENDPOINT,
-        {
-          method: 'POST',
-          body: data,
-          headers: USE_NETLIFY ? {} : { 'Accept': 'application/json' }
-        }
-      );
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
       if (response.ok) {
         // Success
@@ -165,7 +155,7 @@
         if (typeof gtag !== 'undefined') {
           gtag('event', 'form_submit', {
             'event_category': 'conversion',
-            'event_label': data.get('event_type') || 'enquiry'
+            'event_label': payload.event_type || 'enquiry'
           });
         }
       } else {
@@ -301,10 +291,10 @@
     if (!rangeInput) return;
 
     const PACKAGES = [
-      { min: 0,   max: 30,  name: 'Starter Package',   price: 'From $550',   note: 'Perfect for small events. Includes 10 taggers, 60 min play, 1 operator.' },
-      { min: 31,  max: 80,  name: 'Events Package',    price: 'From $750',   note: 'Ideal for mid-size groups. Includes 20 taggers, 90 min play, 1–2 operators.' },
-      { min: 81,  max: 200, name: 'Festival Package',  price: 'From $1,200', note: 'Built for large events. Multiple operators, extended time, inflatable barricades.' },
-      { min: 201, max: 999, name: 'Custom Event Quote', price: 'Contact us',  note: "We've handled events with 300+ players. Let's talk about your requirements." }
+      { min: 0,   max: 25,  name: 'Party Pack',        price: 'From $550',   note: 'Perfect for small groups. Includes 10 taggers, 60 min play, 1 Mission Director.' },
+      { min: 26,  max: 50,  name: 'Group Session',     price: 'From $699',   note: 'Great for school groups & clubs. 12 taggers, 90 min play, 8 inflatable bunkers.' },
+      { min: 51,  max: 150, name: 'Event Pack',        price: 'From $799',   note: 'Ideal for larger events. 14 taggers, 120 min play, 12 inflatable bunkers.' },
+      { min: 151, max: 999, name: 'Custom Event Quote', price: 'Contact us',  note: "Large-scale events with 150+ players — let's talk about your requirements." }
     ];
 
     function updateCalculator(count) {

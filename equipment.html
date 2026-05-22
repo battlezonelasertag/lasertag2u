@@ -446,7 +446,7 @@
     </div>
   </div>
   <div class="footer__bottom">
-    <p class="footer__copyright">&copy; 2025 Laser Tag 2 U. All rights reserved. ABN: XX XXX XXX XXX</p>
+    <p class="footer__copyright">&copy; 2026 Laser Tag 2 U. All rights reserved.</p>
     <div class="footer__legal">
       <a href="#" class="footer__legal-link">Privacy Policy</a>
       <a href="#" class="footer__legal-link">Terms &amp; Conditions</a>
@@ -472,13 +472,13 @@
       <h3 class="form-success__title">Sent!</h3>
       <p class="form-success__body">We'll be in touch within one business day.</p>
     </div>
-    <form class="enquiry-form form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+    <form class="enquiry-form form" action="/api/enquiry" method="POST" novalidate>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);">
-        <div class="field"><label class="field__label field__label--required" for="eq-name">Name</label><input class="field__input" type="text" id="eq-name" name="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-        <div class="field"><label class="field__label field__label--required" for="eq-phone">Phone</label><input class="field__input" type="tel" id="eq-phone" name="phone" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="eq-email">Email</label><input class="field__input" type="email" id="eq-email" name="email" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-        <div class="field"><label class="field__label field__label--required" for="eq-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="eq-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete</option><option value="council">Council / Community</option><option value="sports">Sports Club</option><option value="birthday">Birthday Party</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
-        <div class="field"><label class="field__label field__label--required" for="eq-location">Location</label><input class="field__input" type="text" id="eq-location" name="location" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="eq-name">Name</label><input class="field__input" type="text" id="eq-name" name="name" autocomplete="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="eq-phone">Phone</label><input class="field__input" type="tel" id="eq-phone" name="phone" autocomplete="tel" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="eq-email">Email</label><input class="field__input" type="email" id="eq-email" name="email" autocomplete="email" spellcheck="false" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="eq-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="eq-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete / Fair</option><option value="council-community">Council / Community</option><option value="sports-club">Sports Club</option><option value="birthday-party">Birthday Party</option><option value="vacation-care">OSHC / Vacation Care</option><option value="corporate">Corporate Group</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="eq-location">Location</label><input class="field__input" type="text" id="eq-location" name="location" autocomplete="off" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
       </div>
       <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;margin-top:var(--space-4);">Send My Enquiry</button>
       <div class="form-trust">
@@ -492,5 +492,8 @@
 <script src="assets/js/main.js" defer></script>
 <script src="assets/js/animations.js" defer></script>
 <script src="assets/js/form.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/gsap-effects.js" defer></script>
 </body>
 </html>

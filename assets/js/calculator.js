@@ -10,9 +10,9 @@
   const BASE_PRICE          = 550;
   const BASE_MINUTES        = 60;
   const BASE_TAGGERS        = 10;
-  const PRICE_PER_30MIN     = 49;
+  const PRICE_PER_30MIN     = 99;
   const PRICE_PER_TAGGER    = 30;
-  const PRICE_PER_BUNKER    = 39;
+  const PRICE_PER_BUNKER    = 10;
   const PRICE_PER_DIR_HR    = 49;
 
   const MAX_EXTRA_BLOCKS    = 10;  // 60 min base + up to 10×30 = 6 hrs total

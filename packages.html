@@ -56,7 +56,7 @@
     <a href="index.html" class="nav__logo"><span class="nav__logo-text">LASER TAG <span>2 U</span></span></a>
     <ul class="nav__links">
       <li><a href="index.html" class="nav__link">Home</a></li>
-      <li><a href="packages.html" class="nav__link">Packages</a></li>
+      <li><a href="packages.html" class="nav__link nav__link--active">Packages</a></li>
       <li><a href="events.html" class="nav__link">Event Types</a></li>
       <li><a href="equipment.html" class="nav__link">Equipment</a></li>
       <li><a href="about.html" class="nav__link">About</a></li>
@@ -69,12 +69,12 @@
       </a>
       <button class="btn btn--primary btn--sm" data-open-modal data-track-cta="nav-get-quote">Get a Quote</button>
     </div>
-    <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false">
+    <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
       <span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span><span class="nav__hamburger-line"></span>
     </button>
   </div>
 </nav>
-<div class="nav__mobile-overlay" role="dialog" aria-label="Mobile navigation">
+<div class="nav__mobile-overlay" id="mobile-nav" role="dialog" aria-label="Mobile navigation">
   <ul class="nav__mobile-links">
     <li><a href="index.html" class="nav__mobile-link">Home</a></li>
     <li><a href="packages.html" class="nav__mobile-link">Packages</a></li>
@@ -126,7 +126,7 @@
   <div class="container">
     <div class="section-header--centered reveal">
       <h2 id="packages-headline" class="section-headline">Choose your package</h2>
-      <p>Every package starts with 60 minutes of play time, 10 taggers, 2 Medic Boxes and 1 Mission Director. Add extra time, taggers and bunkers from there. We run <strong>10-minute games</strong> as standard — around 6 rotations per hour with 10 taggers.</p>
+      <p>Three all-inclusive packages to suit any event size. Every booking includes 2 Medic Boxes and 1 Mission Director. We run <strong>10-minute games</strong> as standard — add extra time, taggers or bunkers to any package.</p>
     </div>
 
     <div class="pricing-grid reveal-group">
@@ -148,59 +148,60 @@
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Mission Director</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Delivery, setup &amp; packdown</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Safety briefing for all players</li>
-          <li class="package-card__feature package-card__feature--addon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>T-Wall bunkers from $39 each (add-on)</li>
+          <li class="package-card__feature package-card__feature--addon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Inflatable bunkers from $10 each (add-on)</li>
         </ul>
         <button class="btn btn--secondary" style="width:100%;justify-content:center;" data-open-modal data-track-cta="party-quote">Get a Quote</button>
       </div>
 
-      <!-- Group Session (Popular) -->
+      <!-- Group Session (Best Value) -->
       <div class="package-card package-card--popular">
-        <div class="package-card__popular-badge">Most Popular</div>
+        <div class="package-card__popular-badge">Best Value</div>
         <div class="package-card__header">
           <p class="package-card__name">Group Session</p>
           <p class="package-card__headline">School activity days, youth groups &amp; sports clubs</p>
         </div>
         <div class="package-card__price-block">
-          <div class="package-card__price"><span class="package-card__price-symbol">$</span>648</div>
-          <p class="package-card__price-note">Inc. GST &nbsp;·&nbsp; 120 min play time</p>
+          <div class="package-card__price"><span class="package-card__price-symbol">$</span>699</div>
+          <p class="package-card__price-note">Inc. GST &nbsp;·&nbsp; 90 min play time</p>
         </div>
         <hr class="package-card__divider">
         <ul class="package-card__features">
-          <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>10 Cobra Phaser taggers</li>
+          <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>12 Cobra Phaser taggers</li>
+          <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>8 mixed inflatable bunkers</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>2 Medic Box respawn stations</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Mission Director</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Delivery, setup &amp; packdown</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Safety briefing for all players</li>
-          <li class="package-card__feature package-card__feature--addon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>T-Wall bunkers from $39 each (add-on)</li>
         </ul>
         <button class="btn btn--primary" style="width:100%;justify-content:center;" data-open-modal data-track-cta="group-quote">Get a Quote</button>
       </div>
 
-      <!-- Community Event -->
-      <div class="package-card">
+      <!-- Event Pack (Most Popular) -->
+      <div class="package-card package-card--popular">
+        <div class="package-card__popular-badge">Most Popular</div>
         <div class="package-card__header">
-          <p class="package-card__name">Community Event</p>
-          <p class="package-card__headline">School fetes, council events &amp; large community days</p>
+          <p class="package-card__name">Event Pack</p>
+          <p class="package-card__headline">School fetes, sports days &amp; large group events</p>
         </div>
         <div class="package-card__price-block">
-          <div class="package-card__price"><span class="package-card__price-symbol">$</span>1,046</div>
-          <p class="package-card__price-note">Inc. GST &nbsp;·&nbsp; 180 min &nbsp;·&nbsp; 20 taggers</p>
+          <div class="package-card__price"><span class="package-card__price-symbol">$</span>799</div>
+          <p class="package-card__price-note">Inc. GST &nbsp;·&nbsp; 120 min play time</p>
         </div>
         <hr class="package-card__divider">
         <ul class="package-card__features">
-          <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>20 Cobra Phaser taggers</li>
+          <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>14 Cobra Phaser taggers</li>
+          <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>12 mixed inflatable bunkers</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>2 Medic Box respawn stations</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>1 Mission Director</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Delivery, setup &amp; packdown</li>
           <li class="package-card__feature"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Safety briefing for all players</li>
-          <li class="package-card__feature package-card__feature--addon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Extra Mission Director recommended for large volumes</li>
         </ul>
-        <button class="btn btn--secondary" style="width:100%;justify-content:center;" data-open-modal data-track-cta="community-quote">Get a Quote</button>
+        <button class="btn btn--primary" style="width:100%;justify-content:center;" data-open-modal data-track-cta="event-quote">Get a Quote</button>
       </div>
 
     </div>
 
-    <p class="text-center reveal" style="color: var(--color-ink-muted); font-size: var(--text-sm); margin-top: var(--space-6);">All prices include GST. Weekend and evening events attract a +10% surcharge. Travel beyond 100km: $1.30/km return.</p>
+    <p class="text-center reveal" style="color: var(--color-ink-muted); font-size: var(--text-sm); margin-top: var(--space-6);">All prices include GST. Weekend and evening events attract a +10% surcharge. Travel beyond 1.5 hrs each way: $99 per 30 min.</p>
 
   </div>
 </section>
@@ -226,7 +227,7 @@
         <tbody>
           <tr>
             <td>Additional Play Time</td>
-            <td>$49 / 30 min</td>
+            <td>$99 / 30 min</td>
             <td>Stack as many 30-minute blocks as you need</td>
           </tr>
           <tr>
@@ -235,9 +236,9 @@
             <td>Additional Cobra Phaser tagger for the full booked duration</td>
           </tr>
           <tr>
-            <td>T-Wall Inflatable Bunker</td>
-            <td>$39 each</td>
-            <td>Hire per item — add as many as your play area needs</td>
+            <td>Inflatable Bunker</td>
+            <td>$10 each</td>
+            <td>Mixed inflatable bunkers — add as many as your play area needs</td>
           </tr>
           <tr>
             <td>Additional Mission Director</td>
@@ -245,14 +246,14 @@
             <td>Recommended for high-volume events with large crowds rotating through</td>
           </tr>
           <tr>
-            <td>Weekend / Evening Surcharge</td>
+            <td>Sunday / Evening Surcharge</td>
             <td>+10%</td>
-            <td>Applied to the total package price for after-hours or weekend bookings</td>
+            <td>Applied to the total package price for Sunday or after-hours bookings</td>
           </tr>
           <tr>
-            <td>Travel Beyond 100km</td>
-            <td>$1.30 / km</td>
-            <td>Return distance from Port Stephens. Confirmed in your quote.</td>
+            <td>Travel Beyond 1.5 hrs</td>
+            <td>$99 / 30 min</td>
+            <td>Charged each way beyond 1.5 hrs from Port Stephens. Confirmed in your quote.</td>
           </tr>
         </tbody>
       </table>
@@ -322,7 +323,7 @@
   <div class="container">
     <div class="section-header--centered reveal">
       <h2 id="builder-headline" class="section-headline">Build your booking</h2>
-      <p>Start with the $550 base and add from there. The total updates as you go.</p>
+      <p>Start with the $550 Party Pack and customise from there. The total updates as you go.</p>
     </div>
 
     <div class="price-builder reveal">
@@ -332,7 +333,7 @@
         <div class="stepper">
           <div class="stepper__header">
             <p class="stepper__label">Play time</p>
-            <p class="stepper__note">Base: 60 min included &nbsp;·&nbsp; +$49 per extra 30 min</p>
+            <p class="stepper__note">Base: 60 min included &nbsp;·&nbsp; +$99 per extra 30 min</p>
           </div>
           <div class="stepper__row">
             <button class="stepper__btn" aria-label="Decrease play time" data-stepper="time" data-dir="-1">−</button>
@@ -356,7 +357,7 @@
         <div class="stepper">
           <div class="stepper__header">
             <p class="stepper__label">T-Wall bunkers</p>
-            <p class="stepper__note">$39 each &nbsp;·&nbsp; not included in base</p>
+            <p class="stepper__note">$10 each &nbsp;·&nbsp; not included in base</p>
           </div>
           <div class="stepper__row">
             <button class="stepper__btn" aria-label="Remove a bunker" data-stepper="bunkers" data-dir="-1">−</button>
@@ -391,7 +392,7 @@
           <span>Estimated total</span>
           <span id="calc-total">$550</span>
         </div>
-        <p class="price-builder__disclaimer">Excludes travel surcharge beyond 100km and weekend/evening loading (+10%). Final price confirmed in your quote.</p>
+        <p class="price-builder__disclaimer">Excludes travel surcharge beyond 1.5 hrs each way and Sunday/evening loading (+10%). Final price confirmed in your quote.</p>
         <button class="btn btn--primary" style="width:100%;justify-content:center;" data-open-modal data-track-cta="builder-quote">Get a Quote</button>
       </div>
 
@@ -424,7 +425,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
           </span>
         </button>
-        <div class="accordion-panel"><div class="accordion-panel__inner"><p>Travel within approximately 100km of Port Stephens is included in all packages at no extra charge. This covers most of Newcastle, the Hunter Valley and Central Coast. Beyond 100km, we charge $1.30/km (return distance). We'll always confirm the travel cost in your quote before you commit.</p></div></div>
+        <div class="accordion-panel"><div class="accordion-panel__inner"><p>Travel within approximately 1.5 hours of Port Stephens is included in all packages at no extra charge. This covers most of Newcastle, the Hunter Valley and Central Coast. Beyond 1.5 hours each way, we charge $99 per 30 minutes. We'll always confirm the travel cost in your quote before you commit.</p></div></div>
       </div>
       <div class="accordion-item">
         <button class="accordion-trigger" aria-expanded="false">
@@ -471,14 +472,14 @@
           <h3 class="form-success__title">Enquiry sent!</h3>
           <p class="form-success__body">We'll be in touch with your tailored quote shortly.</p>
         </div>
-        <form class="enquiry-form form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <form class="enquiry-form form" action="/api/enquiry" method="POST" novalidate>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5);">
-            <div class="field"><label class="field__label field__label--required" for="p-name">Name</label><input class="field__input" type="text" id="p-name" name="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-            <div class="field"><label class="field__label field__label--required" for="p-phone">Phone</label><input class="field__input" type="tel" id="p-phone" name="phone" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-            <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="p-email">Email</label><input class="field__input" type="email" id="p-email" name="email" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-            <div class="field"><label class="field__label field__label--required" for="p-event-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="p-event-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete / Fair</option><option value="council-community">Council / Community</option><option value="sports-club">Sports Club</option><option value="birthday-party">Birthday Party</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
+            <div class="field"><label class="field__label field__label--required" for="p-name">Name</label><input class="field__input" type="text" id="p-name" name="name" autocomplete="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field"><label class="field__label field__label--required" for="p-phone">Phone</label><input class="field__input" type="tel" id="p-phone" name="phone" autocomplete="tel" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="p-email">Email</label><input class="field__input" type="email" id="p-email" name="email" autocomplete="email" spellcheck="false" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field"><label class="field__label field__label--required" for="p-event-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="p-event-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete / Fair</option><option value="council-community">Council / Community</option><option value="sports-club">Sports Club</option><option value="birthday-party">Birthday Party</option><option value="vacation-care">OSHC / Vacation Care</option><option value="corporate">Corporate Group</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
             <div class="field"><label class="field__label field__label--required" for="p-guests">Guest Count</label><div class="field__select-wrap"><select class="field__select" id="p-guests" name="guest_count" required aria-required="true"><option value="">Select...</option><option value="under-50">Under 50</option><option value="50-150">50–150</option><option value="150-300">150–300</option><option value="300-plus">300+</option></select></div><span class="field__error-msg" role="alert"></span></div>
-            <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="p-location">Event Location</label><input class="field__input" type="text" id="p-location" name="location" placeholder="e.g. Newcastle, Gosford" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+            <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="p-location">Event Location</label><input class="field__input" type="text" id="p-location" name="location" placeholder="e.g. Newcastle, Gosford" autocomplete="off" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
           </div>
           <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;margin-top:var(--space-4);">Send My Enquiry <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="20" height="20" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></button>
           <div class="form-trust"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>Your details are private and will never be shared.</div>
@@ -507,10 +508,10 @@
       </div>
       <div><p class="footer__nav-title">Navigate</p><ul class="footer__nav-links"><li><a href="index.html" class="footer__nav-link">Home</a></li><li><a href="packages.html" class="footer__nav-link">Packages</a></li><li><a href="events.html" class="footer__nav-link">Event Types</a></li><li><a href="equipment.html" class="footer__nav-link">Equipment</a></li><li><a href="about.html" class="footer__nav-link">About</a></li><li><a href="faq.html" class="footer__nav-link">FAQ</a></li></ul></div>
       <div><p class="footer__nav-title">Event Types</p><ul class="footer__nav-links"><li><a href="events.html#school-fetes" class="footer__nav-link">School Fetes</a></li><li><a href="events.html#community" class="footer__nav-link">Community Events</a></li><li><a href="events.html#sports" class="footer__nav-link">Sports Clubs</a></li><li><a href="events.html#birthday" class="footer__nav-link">Birthday Parties</a></li></ul></div>
-      <div><p class="footer__nav-title">Get in Touch</p><div class="footer__contact-items"><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg><p class="footer__contact-text"><a href="tel:+611300661565">1300 661 565</a></p></div><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg><p class="footer__contact-text"><a href="mailto:info@lasertag2u.com.au">info@lasertag2u.com.au</a></p></div></div></div>
+      <div><p class="footer__nav-title">Get in Touch</p><div class="footer__contact-items"><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg><p class="footer__contact-text"><a href="tel:+611300661565">1300 661 565</a></p></div><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg><p class="footer__contact-text"><a href="mailto:info@lasertag2u.com.au">info@lasertag2u.com.au</a></p></div><div class="footer__contact-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18" class="footer__contact-icon" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg><p class="footer__contact-text">Port Stephens, NSW<br>Serving all of NSW</p></div></div></div>
     </div>
     <div class="footer__bottom">
-      <p class="footer__copyright">&copy; 2025 Laser Tag 2 U. All rights reserved.</p>
+      <p class="footer__copyright">&copy; 2026 Laser Tag 2 U. All rights reserved.</p>
       <div class="footer__legal"><a href="#" class="footer__legal-link">Privacy Policy</a><a href="#" class="footer__legal-link">Terms &amp; Conditions</a></div>
     </div>
   </div>
@@ -528,14 +529,14 @@
       <button class="modal__close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="18" height="18" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
     </div>
     <div class="form-success" role="status" aria-live="polite"><div class="form-success__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div><h3 class="form-success__title">Sent!</h3><p class="form-success__body">We'll be in touch within one business day.</p></div>
-    <form class="enquiry-form form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+    <form class="enquiry-form form" action="/api/enquiry" method="POST" novalidate>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);">
-        <div class="field"><label class="field__label field__label--required" for="m2-name">Name</label><input class="field__input" type="text" id="m2-name" name="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-        <div class="field"><label class="field__label field__label--required" for="m2-phone">Phone</label><input class="field__input" type="tel" id="m2-phone" name="phone" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="m2-email">Email</label><input class="field__input" type="email" id="m2-email" name="email" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
-        <div class="field"><label class="field__label field__label--required" for="m2-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="m2-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete</option><option value="council">Council / Community</option><option value="sports">Sports Club</option><option value="birthday">Birthday Party</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="m2-name">Name</label><input class="field__input" type="text" id="m2-name" name="name" autocomplete="name" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="m2-phone">Phone</label><input class="field__input" type="tel" id="m2-phone" name="phone" autocomplete="tel" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="m2-email">Email</label><input class="field__input" type="email" id="m2-email" name="email" autocomplete="email" spellcheck="false" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field"><label class="field__label field__label--required" for="m2-type">Event Type</label><div class="field__select-wrap"><select class="field__select" id="m2-type" name="event_type" required aria-required="true"><option value="">Select...</option><option value="school-fete">School Fete / Fair</option><option value="council-community">Council / Community</option><option value="sports-club">Sports Club</option><option value="birthday-party">Birthday Party</option><option value="vacation-care">OSHC / Vacation Care</option><option value="corporate">Corporate Group</option><option value="other">Other</option></select></div><span class="field__error-msg" role="alert"></span></div>
         <div class="field"><label class="field__label field__label--required" for="m2-guests">Guest Count</label><div class="field__select-wrap"><select class="field__select" id="m2-guests" name="guest_count" required aria-required="true"><option value="">Select...</option><option value="under-50">Under 50</option><option value="50-150">50–150</option><option value="150-300">150–300</option><option value="300-plus">300+</option></select></div><span class="field__error-msg" role="alert"></span></div>
-        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="m2-location">Location</label><input class="field__input" type="text" id="m2-location" name="location" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
+        <div class="field" style="grid-column:1/-1;"><label class="field__label field__label--required" for="m2-location">Location</label><input class="field__input" type="text" id="m2-location" name="location" autocomplete="off" required aria-required="true"><span class="field__error-msg" role="alert"></span></div>
       </div>
       <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;margin-top:var(--space-4);">Send My Enquiry</button>
       <div class="form-trust"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>Response within 1 business day. Your details stay private.</div>
@@ -548,5 +549,8 @@
 <script src="assets/js/faq.js" defer></script>
 <script src="assets/js/form.js" defer></script>
 <script src="assets/js/calculator.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/gsap-effects.js" defer></script>
 </body>
 </html>

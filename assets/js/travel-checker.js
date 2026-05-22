@@ -3,8 +3,9 @@
 (function () {
   const BASE_LAT = -32.7220;
   const BASE_LON = 152.1466;
-  const FREE_RADIUS_KM = 100;
-  const RATE_PER_KM = 1.30;
+  const FREE_RADIUS_KM = 130;   // ~1.5 hrs each way from Port Stephens
+  const RATE_PER_BLOCK = 99;    // $99 per 30 min each way beyond free radius
+  const KM_PER_BLOCK   = 38;    // ~38km haversine per 30 min drive
 
   function haversineKm(lat1, lon1, lat2, lon2) {
     const R = 6371;
@@ -18,8 +19,10 @@
   }
 
   function travelCost(distanceKm) {
-    const chargeableKm = Math.max(0, distanceKm * 2 - FREE_RADIUS_KM * 2);
-    return Math.round(chargeableKm * RATE_PER_KM);
+    if (distanceKm <= FREE_RADIUS_KM) return 0;
+    const chargeableKm = distanceKm - FREE_RADIUS_KM;
+    const blocks = Math.ceil(chargeableKm / KM_PER_BLOCK);
+    return blocks * RATE_PER_BLOCK * 2; // both ways
   }
 
   async function geocode(query) {
@@ -117,7 +120,7 @@
             `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="20" height="20" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
             <div>
               <strong>Travel included</strong>
-              <span>${shortName} is ~${distKm} km — within our free service area.</span>
+              <span>${shortName} is within our free 1.5 hr service area.</span>
             </div>`
           );
         } else {

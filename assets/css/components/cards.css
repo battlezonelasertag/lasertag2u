@@ -269,6 +269,23 @@
 
 .event-band:hover { transform: scale(1.008); }
 
+/* Directional clip-path reveal — overrides generic .reveal translateY */
+.event-band.reveal {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0 round var(--radius-2xl));
+  transition: clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.event-band--flip.reveal {
+  clip-path: inset(0 0 0 100% round var(--radius-2xl));
+}
+
+.event-band.reveal.is-visible {
+  clip-path: inset(0 0 0 0 round var(--radius-2xl));
+  transform: none;
+}
+
 .event-band--flip { direction: rtl; }
 .event-band--flip > * { direction: ltr; }
 
@@ -541,11 +558,26 @@
 .area-card {
   background: var(--color-surface-high);
   border-radius: var(--radius-xl);
-  padding: var(--space-7);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 0;
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.area-card__map {
+  height: 190px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.area-card__content {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
 }
 
 .area-card__region {
@@ -553,36 +585,34 @@
   font-weight: var(--weight-extrabold);
   color: var(--color-ink);
   letter-spacing: var(--tracking-tight);
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .area-card__cities {
   font-size: var(--text-sm);
   color: var(--color-ink-muted);
   line-height: var(--leading-relaxed);
-  flex: 1;
 }
 
-.area-card__status {
-  display: inline-flex;
+.area-card__footer {
+  display: flex;
   align-items: center;
   gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  width: fit-content;
+  border-top: 1px solid var(--color-surface-mid);
 }
 
-.area-card__status--free {
-  background: var(--color-accent-tint);
-  color: var(--color-ink);
+.area-card__footer--free {
+  background: rgba(202, 253, 0, 0.06);
+  color: #5a7a00;
 }
 
-.area-card__status--surcharge {
-  background: var(--color-surface-mid);
+.area-card__footer--surcharge {
+  background: var(--color-surface-low);
   color: var(--color-ink-muted);
 }
 

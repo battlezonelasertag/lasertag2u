@@ -42,18 +42,14 @@
   function openItem(item) {
     const panel = item.querySelector('.accordion-panel');
     const trigger = item.querySelector('.accordion-trigger');
-
     item.classList.add('is-open');
     trigger.setAttribute('aria-expanded', 'true');
-
-    // Set max-height to measured scrollHeight for smooth animation
     panel.style.maxHeight = panel.scrollHeight + 'px';
   }
 
   function closeItem(item) {
     const panel = item.querySelector('.accordion-panel');
     const trigger = item.querySelector('.accordion-trigger');
-
     item.classList.remove('is-open');
     trigger.setAttribute('aria-expanded', 'false');
     panel.style.maxHeight = '0';
