@@ -36,28 +36,52 @@ module.exports = async function handler(req, res) {
     const longToken  = longData.access_token;
     const expiryDays = longData.expires_in ? Math.round(longData.expires_in / 86400) : 60;
 
-    // 3. Find Facebook Pages
+    // 3a. Try via Facebook Pages first
+    let igUserId = null;
+    let pageName = null;
+
     const pagesRes  = await fetch(`${GRAPH}/me/accounts?access_token=${longToken}`);
     const pagesData = await pagesRes.json();
-    if (!pagesRes.ok) throw new Error(pagesData.error?.message || 'Could not fetch Facebook Pages');
-    if (!pagesData.data?.length) {
-      throw new Error('No Facebook Pages found. Make sure your Instagram account is linked to a Facebook Page and try again.');
-    }
-
-    // 4. Find Instagram Business Account across pages
-    let igUserId  = null;
-    let pageName  = null;
-    for (const page of pagesData.data) {
-      const igRes  = await fetch(`${GRAPH}/${page.id}?fields=instagram_business_account&access_token=${longToken}`);
-      const igData = await igRes.json();
-      if (igData.instagram_business_account?.id) {
-        igUserId = igData.instagram_business_account.id;
-        pageName = page.name;
-        break;
+    if (pagesRes.ok && pagesData.data?.length) {
+      for (const page of pagesData.data) {
+        const igRes  = await fetch(`${GRAPH}/${page.id}?fields=instagram_business_account&access_token=${longToken}`);
+        const igData = await igRes.json();
+        if (igData.instagram_business_account?.id) {
+          igUserId = igData.instagram_business_account.id;
+          pageName = page.name;
+          break;
+        }
       }
     }
+
+    // 3b. Fallback: try via Business Portfolio
     if (!igUserId) {
-      throw new Error('No Instagram Professional account found linked to your Facebook Pages. Make sure the account is set to Business or Creator and is connected to a Page.');
+      const bizRes  = await fetch(`${GRAPH}/me/businesses?fields=instagram_business_accounts&access_token=${longToken}`);
+      const bizData = await bizRes.json();
+      if (bizRes.ok && bizData.data?.length) {
+        for (const biz of bizData.data) {
+          const accounts = biz.instagram_business_accounts?.data || [];
+          if (accounts.length) {
+            igUserId = accounts[0].id;
+            pageName = biz.name;
+            break;
+          }
+        }
+      }
+    }
+
+    // 3c. Fallback: check if token itself has an Instagram account attached
+    if (!igUserId) {
+      const meRes  = await fetch(`${GRAPH}/me?fields=instagram_business_account&access_token=${longToken}`);
+      const meData = await meRes.json();
+      if (meRes.ok && meData.instagram_business_account?.id) {
+        igUserId = meData.instagram_business_account.id;
+        pageName = 'your account';
+      }
+    }
+
+    if (!igUserId) {
+      throw new Error('Could not find an Instagram Professional account. Make sure @lasertag2u is set to a Business or Creator account and is connected to your Facebook Page or Business Portfolio.');
     }
 
     return res.status(200).send(successPage({ igUserId, longToken, expiryDays, pageName }));
