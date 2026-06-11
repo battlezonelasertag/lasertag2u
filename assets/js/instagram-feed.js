@@ -66,6 +66,7 @@
         object-fit: cover; border-radius: 14px 14px 0 0;
         display: block;
       }
+      .ig-modal__media { position: relative; }
       .ig-modal__mute {
         position: absolute; bottom: 10px; right: 10px;
         width: 34px; height: 34px;
@@ -93,9 +94,11 @@
     el.innerHTML = `
       <div class="ig-modal">
         <button class="ig-modal__close" aria-label="Close">&times;</button>
-        <img class="ig-modal__img" src="" alt="" style="display:none;">
-        <video class="ig-modal__video" autoplay muted playsinline loop style="display:none;"></video>
-        <button class="ig-modal__mute" aria-label="Unmute"></button>
+        <div class="ig-modal__media">
+          <img class="ig-modal__img" src="" alt="" style="display:none;">
+          <video class="ig-modal__video" autoplay muted playsinline loop style="display:none;"></video>
+          <button class="ig-modal__mute" aria-label="Unmute"></button>
+        </div>
         <div class="ig-modal__body">
           <p class="ig-modal__caption"></p>
           <a class="ig-modal__link" href="#" target="_blank" rel="noopener noreferrer">View on Instagram →</a>
