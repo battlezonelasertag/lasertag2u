@@ -138,6 +138,9 @@
 
     const muteBtn = overlay.querySelector('.ig-modal__mute');
 
+    // Always clear onerror first to prevent stale closure firing when src is cleared
+    video.onerror = null;
+
     if (isVideo && item.media_url) {
       img.style.display   = 'none';
       video.style.display = '';
@@ -147,6 +150,7 @@
       video.load();
       video.play().catch(() => {});
       video.onerror = () => {
+        video.onerror       = null;
         video.style.display = 'none';
         muteBtn.classList.remove('is-visible');
         img.style.display   = '';
@@ -156,8 +160,8 @@
       muteBtn.classList.add('is-visible');
       updateMuteBtn(muteBtn, true);
     } else {
-      video.style.display = 'none';
-      video.src           = '';
+      video.pause();
+      video.removeAttribute('src');
       muteBtn.classList.remove('is-visible');
       img.style.display   = '';
       img.src             = isVideo ? (item.thumbnail_url || '') : item.media_url;
