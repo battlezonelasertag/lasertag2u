@@ -61,9 +61,9 @@
         color: #fff; letter-spacing: .06em; text-transform: uppercase;
         pointer-events: none;
       }
-      .ig-modal__embed {
-        width: 100%; aspect-ratio: 4/5;
-        border: none; border-radius: 14px 14px 0 0;
+      .ig-modal__video {
+        width: 100%; aspect-ratio: 1/1;
+        object-fit: cover; border-radius: 14px 14px 0 0;
         display: block;
       }
       [data-instagram-strip] .photo-strip__item { cursor: pointer; }
@@ -83,7 +83,7 @@
       <div class="ig-modal">
         <button class="ig-modal__close" aria-label="Close">&times;</button>
         <img class="ig-modal__img" src="" alt="" style="display:none;">
-        <iframe class="ig-modal__embed" src="" loading="lazy" allowfullscreen style="display:none;"></iframe>
+        <video class="ig-modal__video" autoplay muted playsinline loop style="display:none;"></video>
         <div class="ig-modal__body">
           <p class="ig-modal__caption"></p>
           <a class="ig-modal__link" href="#" target="_blank" rel="noopener noreferrer">View on Instagram →</a>
@@ -97,37 +97,38 @@
     return el;
   }
 
-  function shortcode(permalink) {
-    const m = permalink.match(/instagram\.com\/(?:p|reel)\/([A-Za-z0-9_-]+)/);
-    return m ? m[1] : null;
-  }
-
   function open(item) {
     if (!overlay) overlay = createOverlay();
 
     const isVideo = item.media_type === 'VIDEO';
     const img     = overlay.querySelector('.ig-modal__img');
-    const frame   = overlay.querySelector('.ig-modal__embed');
+    const video   = overlay.querySelector('.ig-modal__video');
+    const altText = item.caption ? item.caption.substring(0, 80) : 'Laser Tag 2 U';
 
-    if (isVideo) {
-      const code = shortcode(item.permalink);
+    if (isVideo && item.media_url) {
       img.style.display   = 'none';
-      img.src             = '';
-      frame.style.display = '';
-      frame.src           = code
-        ? `https://www.instagram.com/p/${code}/embed/`
-        : item.permalink;
+      video.style.display = '';
+      video.poster        = item.thumbnail_url || '';
+      video.src           = item.media_url;
+      video.load();
+      video.play().catch(() => {});
+      video.onerror = () => {
+        video.style.display = 'none';
+        img.style.display   = '';
+        img.src             = item.thumbnail_url || '';
+        img.alt             = altText;
+      };
     } else {
-      frame.style.display = 'none';
-      frame.src           = '';
+      video.style.display = 'none';
+      video.src           = '';
       img.style.display   = '';
-      img.src             = item.media_url;
-      img.alt             = item.caption ? item.caption.substring(0, 80) : 'Laser Tag 2 U';
+      img.src             = isVideo ? (item.thumbnail_url || '') : item.media_url;
+      img.alt             = altText;
     }
 
     const cap = overlay.querySelector('.ig-modal__caption');
-    cap.textContent   = isVideo ? '' : (item.caption || '');
-    cap.style.display = (!isVideo && item.caption) ? '' : 'none';
+    cap.textContent   = item.caption || '';
+    cap.style.display = item.caption ? '' : 'none';
 
     overlay.querySelector('.ig-modal__link').href = item.permalink;
     overlay.classList.add('is-open');
@@ -136,8 +137,8 @@
 
   function close() {
     if (!overlay) return;
-    const frame = overlay.querySelector('.ig-modal__embed');
-    if (frame) frame.src = '';
+    const video = overlay.querySelector('.ig-modal__video');
+    if (video) { video.pause(); video.src = ''; }
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
   }
