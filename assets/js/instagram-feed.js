@@ -66,6 +66,17 @@
         object-fit: cover; border-radius: 14px 14px 0 0;
         display: block;
       }
+      .ig-modal__mute {
+        position: absolute; bottom: 10px; right: 10px;
+        width: 34px; height: 34px;
+        background: rgba(0,0,0,.55); border: none; border-radius: 50%;
+        color: #fff; cursor: pointer;
+        display: none; align-items: center; justify-content: center;
+        transition: background .15s;
+      }
+      .ig-modal__mute:hover { background: rgba(0,0,0,.85); }
+      .ig-modal__mute.is-visible { display: flex; }
+      .ig-modal__mute svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
       [data-instagram-strip] .photo-strip__item { cursor: pointer; }
     `;
     document.head.appendChild(s);
@@ -84,6 +95,7 @@
         <button class="ig-modal__close" aria-label="Close">&times;</button>
         <img class="ig-modal__img" src="" alt="" style="display:none;">
         <video class="ig-modal__video" autoplay muted playsinline loop style="display:none;"></video>
+        <button class="ig-modal__mute" aria-label="Unmute"></button>
         <div class="ig-modal__body">
           <p class="ig-modal__caption"></p>
           <a class="ig-modal__link" href="#" target="_blank" rel="noopener noreferrer">View on Instagram →</a>
@@ -94,7 +106,23 @@
     el.addEventListener('click', e => { if (e.target === el) close(); });
     el.querySelector('.ig-modal__close').addEventListener('click', close);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+    const muteBtn = el.querySelector('.ig-modal__mute');
+    muteBtn.addEventListener('click', () => {
+      const video = el.querySelector('.ig-modal__video');
+      video.muted = !video.muted;
+      updateMuteBtn(muteBtn, video.muted);
+    });
+
     return el;
+  }
+
+  const ICON_UNMUTED = `<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+  const ICON_MUTED   = `<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+
+  function updateMuteBtn(btn, isMuted) {
+    btn.innerHTML    = isMuted ? ICON_MUTED : ICON_UNMUTED;
+    btn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
   }
 
   function open(item) {
@@ -105,22 +133,29 @@
     const video   = overlay.querySelector('.ig-modal__video');
     const altText = item.caption ? item.caption.substring(0, 80) : 'Laser Tag 2 U';
 
+    const muteBtn = overlay.querySelector('.ig-modal__mute');
+
     if (isVideo && item.media_url) {
       img.style.display   = 'none';
       video.style.display = '';
+      video.muted         = true;
       video.poster        = item.thumbnail_url || '';
       video.src           = item.media_url;
       video.load();
       video.play().catch(() => {});
       video.onerror = () => {
         video.style.display = 'none';
+        muteBtn.classList.remove('is-visible');
         img.style.display   = '';
         img.src             = item.thumbnail_url || '';
         img.alt             = altText;
       };
+      muteBtn.classList.add('is-visible');
+      updateMuteBtn(muteBtn, true);
     } else {
       video.style.display = 'none';
       video.src           = '';
+      muteBtn.classList.remove('is-visible');
       img.style.display   = '';
       img.src             = isVideo ? (item.thumbnail_url || '') : item.media_url;
       img.alt             = altText;
@@ -137,8 +172,10 @@
 
   function close() {
     if (!overlay) return;
-    const video = overlay.querySelector('.ig-modal__video');
+    const video   = overlay.querySelector('.ig-modal__video');
+    const muteBtn = overlay.querySelector('.ig-modal__mute');
     if (video) { video.pause(); video.src = ''; }
+    if (muteBtn) muteBtn.classList.remove('is-visible');
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
   }
