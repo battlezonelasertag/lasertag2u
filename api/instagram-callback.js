@@ -36,53 +36,25 @@ module.exports = async function handler(req, res) {
     const longToken  = longData.access_token;
     const expiryDays = longData.expires_in ? Math.round(longData.expires_in / 86400) : 60;
 
-    // 3a. Try via Facebook Pages first
+    // 3. Try to discover IG User ID (best-effort — not required if already known)
     let igUserId = null;
     let pageName = null;
 
-    const pagesRes  = await fetch(`${GRAPH}/me/accounts?access_token=${longToken}`);
-    const pagesData = await pagesRes.json();
-    if (pagesRes.ok && pagesData.data?.length) {
-      for (const page of pagesData.data) {
-        const igRes  = await fetch(`${GRAPH}/${page.id}?fields=instagram_business_account&access_token=${longToken}`);
-        const igData = await igRes.json();
-        if (igData.instagram_business_account?.id) {
-          igUserId = igData.instagram_business_account.id;
-          pageName = page.name;
-          break;
-        }
-      }
-    }
-
-    // 3b. Fallback: try via Business Portfolio
-    if (!igUserId) {
-      const bizRes  = await fetch(`${GRAPH}/me/businesses?fields=instagram_business_accounts&access_token=${longToken}`);
-      const bizData = await bizRes.json();
-      if (bizRes.ok && bizData.data?.length) {
-        for (const biz of bizData.data) {
-          const accounts = biz.instagram_business_accounts?.data || [];
-          if (accounts.length) {
-            igUserId = accounts[0].id;
-            pageName = biz.name;
+    try {
+      const pagesRes  = await fetch(`${GRAPH}/me/accounts?access_token=${longToken}`);
+      const pagesData = await pagesRes.json();
+      if (pagesRes.ok && pagesData.data?.length) {
+        for (const page of pagesData.data) {
+          const igRes  = await fetch(`${GRAPH}/${page.id}?fields=instagram_business_account&access_token=${longToken}`);
+          const igData = await igRes.json();
+          if (igData.instagram_business_account?.id) {
+            igUserId = igData.instagram_business_account.id;
+            pageName = page.name;
             break;
           }
         }
       }
-    }
-
-    // 3c. Fallback: check if token itself has an Instagram account attached
-    if (!igUserId) {
-      const meRes  = await fetch(`${GRAPH}/me?fields=instagram_business_account&access_token=${longToken}`);
-      const meData = await meRes.json();
-      if (meRes.ok && meData.instagram_business_account?.id) {
-        igUserId = meData.instagram_business_account.id;
-        pageName = 'your account';
-      }
-    }
-
-    if (!igUserId) {
-      throw new Error('Could not find an Instagram Professional account. Make sure @lasertag2u is set to a Business or Creator account and is connected to your Facebook Page or Business Portfolio.');
-    }
+    } catch (_) { /* non-fatal */ }
 
     return res.status(200).send(successPage({ igUserId, longToken, expiryDays, pageName }));
 
@@ -93,6 +65,17 @@ module.exports = async function handler(req, res) {
 };
 
 function successPage({ igUserId, longToken, expiryDays, pageName }) {
+  const userIdBlock = igUserId
+    ? `<div class="card">
+        <label>INSTAGRAM_USER_ID</label>
+        <div class="value" title="Click to select">${igUserId}</div>
+        <p class="hint">Click the value to select it, then copy.</p>
+       </div>`
+    : `<div class="card" style="border-color:#ffe082;background:#fff8e1;">
+        <label>INSTAGRAM_USER_ID</label>
+        <p style="font-size:14px;color:#7a5c00;line-height:1.6;">Could not auto-detect — use <strong>17841402907917345</strong> (visible in your Meta Business Suite → Instagram accounts page).</p>
+       </div>`;
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,15 +103,11 @@ function successPage({ igUserId, longToken, expiryDays, pageName }) {
 </head>
 <body>
 <div class="wrap">
-  <div class="badge">✓ Connected</div>
-  <h1>Instagram connected successfully</h1>
-  <p class="sub">Page: <strong>${pageName}</strong> &mdash; copy both values into Vercel below.</p>
+  <div class="badge">✓ Token generated</div>
+  <h1>Almost there — copy these into Vercel</h1>
+  <p class="sub">${pageName ? `Page: <strong>${pageName}</strong> &mdash; ` : ''}Token generated successfully.</p>
 
-  <div class="card">
-    <label>INSTAGRAM_USER_ID</label>
-    <div class="value" title="Click to select">${igUserId}</div>
-    <p class="hint">Click the value to select it, then copy.</p>
-  </div>
+  ${userIdBlock}
 
   <div class="card">
     <label>INSTAGRAM_ACCESS_TOKEN &nbsp;&middot;&nbsp; expires in ${expiryDays} days</label>
@@ -136,7 +115,7 @@ function successPage({ igUserId, longToken, expiryDays, pageName }) {
     <p class="hint">Click the value to select it, then copy.</p>
   </div>
 
-  <div class="warn">⚠️ This token expires in <strong>${expiryDays} days</strong>. To renew it, visit <strong>/api/instagram-connect</strong> again before it expires and repeat this process.</div>
+  <div class="warn">⚠️ This token expires in <strong>${expiryDays} days</strong>. To renew it, visit <strong>/api/instagram-connect</strong> again before it expires.</div>
 
   <ol>
     <li>Go to <strong>Vercel → your project → Settings → Environment Variables</strong></li>
