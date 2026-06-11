@@ -78,6 +78,7 @@
       <div class="ig-modal">
         <button class="ig-modal__close" aria-label="Close">&times;</button>
         <img class="ig-modal__img" src="" alt="">
+        <video class="ig-modal__img ig-modal__video" autoplay muted playsinline loop style="display:none;"></video>
         <div class="ig-modal__body">
           <p class="ig-modal__caption"></p>
           <a class="ig-modal__link" href="#" target="_blank" rel="noopener noreferrer">View on Instagram →</a>
@@ -94,14 +95,29 @@
   function open(item) {
     if (!overlay) overlay = createOverlay();
 
-    const src = item.media_type === 'VIDEO' ? item.thumbnail_url : item.media_url;
-    overlay.querySelector('.ig-modal__img').src = src;
-    overlay.querySelector('.ig-modal__img').alt = item.caption
-      ? item.caption.substring(0, 80) : 'Laser Tag 2 U';
+    const isVideo = item.media_type === 'VIDEO';
+    const img     = overlay.querySelector('.ig-modal__img:not(.ig-modal__video)');
+    const video   = overlay.querySelector('.ig-modal__video');
+    const altText = item.caption ? item.caption.substring(0, 80) : 'Laser Tag 2 U';
+
+    if (isVideo) {
+      img.style.display   = 'none';
+      video.style.display = '';
+      video.src           = item.media_url;
+      video.load();
+      video.play().catch(() => {});
+    } else {
+      video.style.display = 'none';
+      video.pause();
+      video.src           = '';
+      img.style.display   = '';
+      img.src             = item.media_url;
+      img.alt             = altText;
+    }
 
     const cap = overlay.querySelector('.ig-modal__caption');
-    cap.textContent = item.caption || '';
-    cap.style.display = item.caption ? '' : 'none';
+    cap.textContent    = item.caption || '';
+    cap.style.display  = item.caption ? '' : 'none';
 
     overlay.querySelector('.ig-modal__link').href = item.permalink;
     overlay.classList.add('is-open');
@@ -110,6 +126,8 @@
 
   function close() {
     if (!overlay) return;
+    const video = overlay.querySelector('.ig-modal__video');
+    if (video) { video.pause(); video.src = ''; }
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
   }
