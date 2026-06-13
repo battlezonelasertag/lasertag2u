@@ -77,10 +77,27 @@
   text-decoration: none;
 }
 
+.nav__logo-imgs {
+  display: grid;
+}
+
+.nav__logo-imgs > * {
+  grid-area: 1 / 1;
+}
+
 .nav__logo-img {
   height: 40px;
   width: auto;
+  transition: opacity 0.3s ease;
 }
+
+/* Default (inner pages — solid nav): show alt */
+.nav__logo-img--main { opacity: 0; }
+.nav__logo-img--alt  { opacity: 1; }
+
+/* Transparent nav (hero pages at top): show main */
+.nav--transparent .nav__logo-img--main { opacity: 1; }
+.nav--transparent .nav__logo-img--alt  { opacity: 0; }
 
 .nav__logo-text {
   font-size: var(--text-lg);
