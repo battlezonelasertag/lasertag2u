@@ -183,10 +183,29 @@
     errorBanner.textContent = 'Something went wrong. Please try calling us directly on 1300 661 565.';
   }
 
+  /* ── Inject anti-spam fields ─────────────────────────────── */
+
+  function injectAntiSpamFields(form) {
+    // Honeypot: visually hidden field bots fill but humans skip
+    const hp = document.createElement('div');
+    hp.setAttribute('aria-hidden', 'true');
+    hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    hp.innerHTML = '<label>Leave this blank <input type="text" name="_hp" tabindex="-1" autocomplete="off" value=""></label>';
+    form.appendChild(hp);
+
+    // Timestamp: server checks form wasn't submitted in under 3 seconds
+    const ts = document.createElement('input');
+    ts.type = 'hidden';
+    ts.name = '_t';
+    ts.value = Date.now();
+    form.appendChild(ts);
+  }
+
   /* ── Init all enquiry forms ───────────────────────────────── */
 
   function initForms() {
     document.querySelectorAll('.enquiry-form').forEach(form => {
+      injectAntiSpamFields(form);
       attachLiveValidation(form);
 
       form.addEventListener('submit', async (e) => {

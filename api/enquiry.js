@@ -105,6 +105,29 @@ async function sendEmail(apiKey, payload) {
   return response.json();
 }
 
+const SPAM_KEYWORDS = [
+  'casino', 'viagra', 'cialis', 'crypto', 'bitcoin', 'nft', 'loan', 'forex',
+  'seo service', 'backlink', 'click here', 'make money', 'work from home',
+  'free money', 'cheap meds', 'pharmacy', 'investment opportunity',
+];
+
+function isSpam({ _hp, _t, name, message }) {
+  // Honeypot filled — bot
+  if (_hp && _hp.trim() !== '') return true;
+
+  // Submitted too fast — bot (allow missing _t for backwards compat)
+  if (_t) {
+    const elapsed = Date.now() - parseInt(_t, 10);
+    if (elapsed < 3000) return true;
+  }
+
+  // Spam keywords in name or message
+  const text = `${name || ''} ${message || ''}`.toLowerCase();
+  if (SPAM_KEYWORDS.some(kw => text.includes(kw))) return true;
+
+  return false;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -119,10 +142,17 @@ module.exports = async function handler(req, res) {
     guest_count,
     message,
     _source_page,
+    _hp,
+    _t,
   } = req.body || {};
 
   if (!name || !email || !phone || !event_type) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Silent reject for bots — return 200 so they think it worked
+  if (isSpam({ _hp, _t, name, message })) {
+    return res.status(200).json({ ok: true });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
