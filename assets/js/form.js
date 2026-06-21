@@ -5,6 +5,21 @@
 (function () {
   'use strict';
 
+  /* ── Cloudflare Turnstile ─────────────────────────────────── */
+
+  // Replace with your real site key from dash.cloudflare.com → Turnstile
+  const TURNSTILE_SITE_KEY = '0x4AAAAAADoZHdTKWeq-ZjH9';
+  let _turnstileScriptLoaded = false;
+
+  function loadTurnstileOnce() {
+    if (_turnstileScriptLoaded) return;
+    _turnstileScriptLoaded = true;
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   /* ── Validation Rules ─────────────────────────────────────── */
 
   const VALIDATORS = {
@@ -163,16 +178,20 @@
       }
     } catch (err) {
       console.error('Form submission error:', err);
-      // Re-enable button and show generic error
       if (submitBtn) {
         submitBtn.classList.remove('btn--loading');
         submitBtn.disabled = false;
+      }
+      // Reset Turnstile so user gets a fresh token for retry
+      const widget = form.querySelector('.cf-turnstile');
+      if (window.turnstile && widget) {
+        window.turnstile.reset(widget);
       }
       showSubmitError(form);
     }
   }
 
-  function showSubmitError(form) {
+  function showSubmitError(form, msg) {
     let errorBanner = form.querySelector('.form-submit-error');
     if (!errorBanner) {
       errorBanner = document.createElement('p');
@@ -180,7 +199,7 @@
       errorBanner.style.cssText = 'color: #ef4444; font-size: var(--text-sm); margin-top: var(--space-4);';
       form.appendChild(errorBanner);
     }
-    errorBanner.textContent = 'Something went wrong. Please try calling us directly on 1300 661 565.';
+    errorBanner.textContent = msg || 'Something went wrong. Please try calling us directly on 1300 661 565.';
   }
 
   /* ── Inject anti-spam fields ─────────────────────────────── */
@@ -193,12 +212,21 @@
     hp.innerHTML = '<label>Leave this blank <input type="text" name="_hp" tabindex="-1" autocomplete="off" value=""></label>';
     form.appendChild(hp);
 
-    // Timestamp: server checks form wasn't submitted in under 3 seconds
+    // Timestamp: server checks form wasn't submitted in under 5 seconds
     const ts = document.createElement('input');
     ts.type = 'hidden';
     ts.name = '_t';
     ts.value = Date.now();
     form.appendChild(ts);
+
+    // Turnstile widget — injected before the submit button
+    const widget = document.createElement('div');
+    widget.className = 'cf-turnstile';
+    widget.setAttribute('data-sitekey', TURNSTILE_SITE_KEY);
+    widget.setAttribute('data-theme', 'light');
+    widget.style.marginBottom = 'var(--space-4)';
+    const submitBtn = form.querySelector('[type="submit"]');
+    form.insertBefore(widget, submitBtn);
   }
 
   /* ── Init all enquiry forms ───────────────────────────────── */
@@ -212,7 +240,6 @@
         e.preventDefault();
 
         if (!validateForm(form)) {
-          // Scroll to first error
           const firstError = form.querySelector('.field--error');
           if (firstError) {
             firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -220,9 +247,19 @@
           return;
         }
 
+        // Require Turnstile token before submitting
+        const tokenInput = form.querySelector('[name="cf-turnstile-response"]');
+        if (!tokenInput || !tokenInput.value) {
+          showSubmitError(form, 'Security check not complete — please wait a moment and try again.');
+          return;
+        }
+
         await submitForm(form);
       });
     });
+
+    // Load Turnstile script after all widget divs are in the DOM
+    loadTurnstileOnce();
   }
 
   /* ── Modal ────────────────────────────────────────────────── */

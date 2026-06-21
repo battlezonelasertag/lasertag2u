@@ -112,20 +112,42 @@ const SPAM_KEYWORDS = [
 ];
 
 function isSpam({ _hp, _t, name, message }) {
-  // Honeypot filled — bot
-  if (_hp && _hp.trim() !== '') return true;
+  // Missing honeypot or timestamp field means a direct API POST (bot bypassing the form)
+  if (_hp === undefined || _t === undefined) return true;
 
-  // Submitted too fast — bot (allow missing _t for backwards compat)
-  if (_t) {
-    const elapsed = Date.now() - parseInt(_t, 10);
-    if (elapsed < 3000) return true;
-  }
+  // Honeypot filled — bot
+  if (_hp.trim() !== '') return true;
+
+  // Submitted too fast or timestamp is invalid/stale
+  const elapsed = Date.now() - parseInt(_t, 10);
+  if (isNaN(elapsed) || elapsed < 5000 || elapsed > 7200000) return true;
 
   // Spam keywords in name or message
   const text = `${name || ''} ${message || ''}`.toLowerCase();
   if (SPAM_KEYWORDS.some(kw => text.includes(kw))) return true;
 
   return false;
+}
+
+async function verifyTurnstile(token, remoteIp) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.warn('TURNSTILE_SECRET_KEY not set — skipping Turnstile verification');
+    return true;
+  }
+
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret, response: token, remoteip: remoteIp }),
+    });
+    const data = await res.json();
+    return data.success === true;
+  } catch (err) {
+    console.error('Turnstile verification error:', err.message);
+    return false;
+  }
 }
 
 module.exports = async function handler(req, res) {
@@ -144,6 +166,7 @@ module.exports = async function handler(req, res) {
     _source_page,
     _hp,
     _t,
+    'cf-turnstile-response': turnstileToken,
   } = req.body || {};
 
   if (!name || !email || !phone || !event_type) {
@@ -152,6 +175,18 @@ module.exports = async function handler(req, res) {
 
   // Silent reject for bots — return 200 so they think it worked
   if (isSpam({ _hp, _t, name, message })) {
+    return res.status(200).json({ ok: true });
+  }
+
+  // Verify Cloudflare Turnstile token — missing token is a hard reject
+  if (!turnstileToken) {
+    return res.status(200).json({ ok: true });
+  }
+
+  const remoteIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+    || req.socket?.remoteAddress;
+  const turnstileOk = await verifyTurnstile(turnstileToken, remoteIp);
+  if (!turnstileOk) {
     return res.status(200).json({ ok: true });
   }
 
