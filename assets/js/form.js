@@ -50,8 +50,21 @@
       required: true,
       minLength: 2,
       message: 'Please enter your event location.'
+    },
+    event_date: {
+      required: false,
+      notPast: true,
+      message: 'Please choose a date that isn’t in the past.'
     }
   };
+
+  /* ── Today as YYYY-MM-DD (local time) ─────────────────────── */
+
+  function todayISO() {
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  }
 
   /* ── Validate a single field ──────────────────────────────── */
 
@@ -68,6 +81,10 @@
     }
 
     if (value && rule.pattern && !rule.pattern.test(value.trim())) {
+      return rule.message;
+    }
+
+    if (value && rule.notPast && value < todayISO()) {
       return rule.message;
     }
 
@@ -116,9 +133,9 @@
 
   function validateForm(form) {
     let isValid = true;
-    const requiredFields = ['name', 'email', 'phone', 'event_type', 'guest_count', 'location'];
+    const fields = ['name', 'email', 'phone', 'event_type', 'guest_count', 'location', 'event_date'];
 
-    requiredFields.forEach(fieldName => {
+    fields.forEach(fieldName => {
       const input = form.querySelector(`[name="${fieldName}"]`);
       if (!input) return;
 
@@ -235,6 +252,11 @@
     document.querySelectorAll('.enquiry-form').forEach(form => {
       injectAntiSpamFields(form);
       attachLiveValidation(form);
+
+      // Event date can't be in the past — block earlier dates in the picker too
+      form.querySelectorAll('input[name="event_date"]').forEach(input => {
+        input.min = todayISO();
+      });
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();

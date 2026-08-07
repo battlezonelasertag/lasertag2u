@@ -20,12 +20,30 @@ const EVENT_TYPE_LABELS = {
   'other':             'Other',
 };
 
-function buildEnquiryHtml({ name, phone, email, eventTypeLabel, location, guest_count, message, source_page }) {
+// Formats a YYYY-MM-DD value as "Sat, 12 September 2026".
+// Returns null for anything that isn't a well-formed date, so unvalidated
+// input never reaches the email HTML.
+function formatEventDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day) {
+    return null;
+  }
+
+  return date.toLocaleDateString('en-AU', {
+    weekday: 'short', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+  });
+}
+
+function buildEnquiryHtml({ name, phone, email, eventTypeLabel, eventDateLabel, location, guest_count, message, source_page }) {
   const rows = [
     ['Name',        name],
     ['Phone',       `<a href="tel:${phone}" style="color:#2c2f30;text-decoration:none;">${phone}</a>`],
     ['Email',       `<a href="mailto:${email}" style="color:#2c2f30;text-decoration:none;">${email}</a>`],
     ['Event Type',  eventTypeLabel],
+    eventDateLabel ? ['Event Date', eventDateLabel] : null,
     ['Location',    location],
     guest_count ? ['Guest Count', guest_count] : null,
     message      ? ['Message',     message]     : null,
@@ -160,6 +178,7 @@ module.exports = async function handler(req, res) {
     phone,
     email,
     event_type,
+    event_date,
     location,
     guest_count,
     message,
@@ -197,6 +216,7 @@ module.exports = async function handler(req, res) {
   }
 
   const eventTypeLabel = EVENT_TYPE_LABELS[event_type] || event_type;
+  const eventDateLabel = formatEventDate(event_date);
   const fromAddress    = process.env.RESEND_FROM || 'onboarding@resend.dev';
   const toAddress      = process.env.ENQUIRY_TO  || 'info@lasertag2u.com.au';
 
@@ -207,8 +227,8 @@ module.exports = async function handler(req, res) {
         from:     fromAddress,
         to:       [toAddress],
         reply_to: email,
-        subject:  `New Enquiry — ${eventTypeLabel} · ${name}`,
-        html:     buildEnquiryHtml({ name, phone, email, eventTypeLabel, location, guest_count, message, source_page: _source_page }),
+        subject:  `New Enquiry — ${eventTypeLabel} · ${name}${eventDateLabel ? ` · ${eventDateLabel}` : ''}`,
+        html:     buildEnquiryHtml({ name, phone, email, eventTypeLabel, eventDateLabel, location, guest_count, message, source_page: _source_page }),
       }),
       // Confirmation to the customer
       sendEmail(apiKey, {

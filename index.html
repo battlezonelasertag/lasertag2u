@@ -1014,6 +1014,7 @@
             <div class="field">
               <label class="field__label" for="event_date">Approximate Event Date</label>
               <input class="field__input" type="date" id="event_date" name="event_date" autocomplete="off">
+              <span class="field__error-msg" role="alert"></span>
             </div>
 
             <div class="field">
@@ -1250,7 +1251,13 @@
           <span class="field__error-msg" role="alert"></span>
         </div>
 
-        <div class="field" style="grid-column: 1 / -1;">
+        <div class="field">
+          <label class="field__label" for="modal-event-date">Event Date</label>
+          <input class="field__input" type="date" id="modal-event-date" name="event_date" autocomplete="off">
+          <span class="field__error-msg" role="alert"></span>
+        </div>
+
+        <div class="field">
           <label class="field__label field__label--required" for="modal-location">Event Location</label>
           <input class="field__input" type="text" id="modal-location" name="location" placeholder="e.g. Newcastle, Gosford" autocomplete="off" required aria-required="true">
           <span class="field__error-msg" role="alert"></span>
