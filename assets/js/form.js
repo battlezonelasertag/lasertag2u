@@ -219,6 +219,27 @@
     errorBanner.textContent = msg || 'Something went wrong. Please try calling us directly on 1300 661 565.';
   }
 
+  /* ── Wait for the Turnstile token ─────────────────────────── */
+
+  function waitForTurnstileToken(form, timeoutMs = 5000) {
+    const token = () => form.querySelector('[name="cf-turnstile-response"]')?.value;
+    if (token()) return Promise.resolve(true);
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    if (submitBtn) submitBtn.classList.add('btn--loading');
+
+    return new Promise(resolve => {
+      const startedAt = Date.now();
+      const poll = setInterval(() => {
+        if (token() || Date.now() - startedAt > timeoutMs) {
+          clearInterval(poll);
+          if (submitBtn) submitBtn.classList.remove('btn--loading');
+          resolve(Boolean(token()));
+        }
+      }, 150);
+    });
+  }
+
   /* ── Inject anti-spam fields ─────────────────────────────── */
 
   function injectAntiSpamFields(form) {
@@ -241,7 +262,16 @@
     widget.className = 'cf-turnstile';
     widget.setAttribute('data-sitekey', TURNSTILE_SITE_KEY);
     widget.setAttribute('data-theme', 'light');
-    widget.style.marginBottom = 'var(--space-4)';
+
+    // The modal is capped at 90vh, and a permanently visible widget pushes the
+    // submit button out of view. Interaction-only still runs the same challenge
+    // — it just stays hidden unless the visitor actually has to solve something.
+    if (form.closest('.modal')) {
+      widget.setAttribute('data-appearance', 'interaction-only');
+    } else {
+      widget.style.marginBottom = 'var(--space-4)';
+    }
+
     const submitBtn = form.querySelector('[type="submit"]');
     form.insertBefore(widget, submitBtn);
   }
@@ -269,9 +299,11 @@
           return;
         }
 
-        // Require Turnstile token before submitting
-        const tokenInput = form.querySelector('[name="cf-turnstile-response"]');
-        if (!tokenInput || !tokenInput.value) {
+        // Require a Turnstile token before submitting. The modal widget is
+        // hidden, so there's no visual cue to wait on — give it a moment to
+        // arrive rather than erroring on a fast submit.
+        const hasToken = await waitForTurnstileToken(form);
+        if (!hasToken) {
           showSubmitError(form, 'Security check not complete — please wait a moment and try again.');
           return;
         }
