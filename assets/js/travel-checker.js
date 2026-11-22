@@ -7,6 +7,14 @@
   const RATE_PER_BLOCK = 99;    // $99 per 30 min each way beyond free radius
   const KM_PER_BLOCK   = 38;    // ~38km haversine per 30 min drive
 
+  // Place names come from OpenStreetMap, which anyone can edit, and land in
+  // innerHTML and a Leaflet tooltip (both render HTML). Escape at the source.
+  function esc(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
   function haversineKm(lat1, lon1, lat2, lon2) {
     const R = 6371;
     const toRad = (d) => (d * Math.PI) / 180;
@@ -111,7 +119,7 @@
         const { lat, lon, name } = await geocode(query);
         const distKm = Math.round(haversineKm(BASE_LAT, BASE_LON, lat, lon));
         const cost = travelCost(distKm);
-        const shortName = name.split(',').slice(0, 2).join(',');
+        const shortName = esc(name.split(',').slice(0, 2).join(','));
 
         updateMap(lat, lon, shortName);
 

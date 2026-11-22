@@ -2,8 +2,27 @@
 
 const GRAPH = 'https://graph.facebook.com/v21.0';
 
+const { stateToken, safeEqual } = require('./_setup-auth.js');
+
+// errorPage() renders values that can come straight from the query string
+function esc(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 module.exports = async function handler(req, res) {
-  const { code, error, error_description } = req.query;
+  const { code, state, error, error_description } = req.query;
+
+  const setupKey = process.env.SETUP_KEY;
+  // Fail closed, and reject any callback we did not start: without this an
+  // attacker can hand you a link that swaps their Instagram account for yours.
+  if (!setupKey) {
+    return res.status(503).send(errorPage('Setup is disabled. Set SETUP_KEY in the Vercel environment to enable it.'));
+  }
+  if (!state || !safeEqual(state, stateToken(setupKey))) {
+    return res.status(400).send(errorPage('Invalid or missing state — start again from /api/instagram-connect.'));
+  }
 
   if (error) {
     return res.status(400).send(errorPage(`Facebook declined access: ${error_description || error}`));
@@ -21,7 +40,7 @@ module.exports = async function handler(req, res) {
   try {
     // 1. Short-lived token
     const shortRes = await fetch(
-      `${GRAPH}/oauth/access_token?client_id=${appId}&client_secret=${appSecret}&redirect_uri=${encodeURIComponent(redirectUri)}&code=${code}`
+      `${GRAPH}/oauth/access_token?client_id=${appId}&client_secret=${appSecret}&redirect_uri=${encodeURIComponent(redirectUri)}&code=${encodeURIComponent(code)}`
     );
     const shortData = await shortRes.json();
     if (!shortRes.ok) throw new Error(shortData.error?.message || 'Token exchange failed');
@@ -145,7 +164,7 @@ function errorPage(message) {
 </head>
 <body>
   <h1>Setup failed</h1>
-  <p>${message}</p>
+  <p>${esc(message)}</p>
   <p style="margin-top:24px"><a href="/api/instagram-connect">← Try again</a></p>
 </body>
 </html>`;
